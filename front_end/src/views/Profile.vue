@@ -461,38 +461,14 @@
                       <div class="block-content ">
                         <div class="div has-text-right">
                             
-                            <History> </History>
+                            <History :histry='user.info.history' @user-history='handleHistory'> </History>
                             </div>
-                        <div class="history-block">
-                          <div class="date">1960's</div>
+                        <div v-for='event in user.info.history' :keys='event.date' class="history-block">
+                          <div class="date">{{date.date}}</div>
                           <div class="timeline">
                             <ul>
                               <li>
-                              </li>
-                              <li>
-                                
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="history-block">
-                          <div class="date">1970's</div>
-                          <div class="timeline">
-                            <ul>
-                              <li>
-                               
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="history-block">
-                          <div class="date">1980's</div>
-                          <div class="timeline">
-                            <ul>
-                              <li>
-                                
+                   
                               </li>
                             </ul>
                           </div>
@@ -559,6 +535,12 @@ export default {
         });
     };
 
+    const handleHistory = (payload: any) => {
+      console.log(payload)
+      user.value.info.history = payload
+
+    }
+
     const entity = [
       { name: "Federacija Bosne i Hercegovine" },
       { name: "Republika Srpska" },
@@ -576,7 +558,8 @@ export default {
       closeMaximizable,
       editPayload,
       entity,
-      currentUser
+      currentUser,
+      handleHistory
     };
   },
 };

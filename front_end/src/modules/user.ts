@@ -8,12 +8,17 @@ interface Portfolio {
   description: string;
   link: string;
 }
+
+interface History {
+  date: string
+  description: string
+}
 export interface User {
   name: string;
   lastName: string;
   email: string;
   entity: string;
-  info: { title: ""; about: ""; entity: "" , phone: '', facebook: ''};
+  info: { title: ""; about: ""; entity: "" , phone: '', facebook: '', history : [History]};
   portfolio: boolean;
   projects: [Portfolio];
 }
@@ -24,7 +29,7 @@ export default function UserWork() {
     lastName: "",
     email: "",
     entity: "",
-    info: { title: "", about: "", entity: "", phone: '', facebook: ''},
+    info: { title: "", about: "", entity: "", phone: '', facebook: '', history: [{date: '', description: ''}]},
     portfolio: false,
     projects: [{ id: 0, name: "", description: "", link: "" }],
   });

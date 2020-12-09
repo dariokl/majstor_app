@@ -9,10 +9,11 @@
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <!-- Content ... -->
+      <InputText v-model='loadHistory.date'/>
+      <InputText v-model='loadHistory.description'/>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Save changes</button>
+      <button class="button is-success" @click='push(loadHistory)'>Save changes</button>
       <button class="button" @click='closeModal' >Cancel</button>
     </footer>
   </div>
@@ -22,8 +23,9 @@
 <script lang="ts">
 import {ref} from 'vue';
 export default {
+  props: ['history'],
 
-    setup() {
+    setup(props: any , {emit} : any) {
         const display = ref(false);
 
         const openModal = () => {
@@ -34,10 +36,19 @@ export default {
             display.value = false;
         }
 
+        const loadHistory = ref({date : '', description: ''})
+
+        const push = (payload: any) => {
+          console.log(payload)
+          emit('user-history', payload)
+        }
+
         return {
             openModal,
             closeModal,
-            display
+            display,
+            loadHistory,
+            push
         }
 
     }
