@@ -9,6 +9,26 @@
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
+                                  <div class="column is-6">
+                              <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon">
+                                  <i class="pi pi-user"></i>
+                                </span>
+                                <span class="p-float-label">
+                                  <InputText
+                                    id="lastName"
+                                    type="text"
+                                    v-model="loadHistory.date"
+                                    
+                                    v-bind:class="{
+                                      'p-filled': loadHistory.date,
+                                    }"
+                                  />
+                                  <label for="lastName">Prezime * </label>
+                                </span>
+                              </div>
+                            </div>
+                            
       <InputText v-model='loadHistory.date'/>
       <InputText v-model='loadHistory.description'/>
     </section>
@@ -39,8 +59,9 @@ export default {
         const loadHistory = ref({date : '', description: ''})
 
         const push = (payload: any) => {
-          console.log(payload)
-          emit('user-history', payload)
+          console.log(loadHistory.value)
+          emit('user-history', loadHistory.value)
+          loadHistory.value = {date: '', description: ''}
         }
 
         return {

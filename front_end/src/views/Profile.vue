@@ -461,14 +461,14 @@
                       <div class="block-content ">
                         <div class="div has-text-right">
                             
-                            <History :histry='user.info.history' @user-history='handleHistory'> </History>
+                            <History :history='user.info.history' @user-history='handleHistory'> </History>
                             </div>
-                        <div v-for='event in user.info.history' :keys='event.date' class="history-block">
-                          <div class="date">{{date.date}}</div>
+                        <div v-for='event in user.info.history' :key='event' class="history-block">
+                          <div class="date">{{event.date}}</div>
                           <div class="timeline">
                             <ul>
                               <li>
-                   
+                                  {{event.description}}
                               </li>
                             </ul>
                           </div>
@@ -480,7 +480,7 @@
               </div>
             </div>
             <Portfolio :projects='user.projects' :check='user.portfolio' @handle-portfolio='currentUser'></Portfolio>
-        
+        {{user}}
             <!-- /timeline POST #5 -->
           </div>
         </div>
@@ -497,7 +497,10 @@ import History from "../components/History.vue";
 import { onMounted, ref, reactive } from "vue";
 import axios from "axios";
 
-
+interface History {
+  date: ''
+  description: ''
+}
 export default {
   components: {
     Portfolio,
@@ -536,9 +539,24 @@ export default {
     };
 
     const handleHistory = (payload: any) => {
-      console.log(payload)
-      user.value.info.history = payload
+      console.log(user.value.info.history)
+      const data = [
+        payload
+      ]
 
+      console.log(payload.value)
+  
+      if (user.value.info.history) {
+        user.value.info.history.push(payload)
+
+        console.log('ima')
+      }
+
+      else {
+        user.value.info.history = data
+        console.log('nema')
+        console.log(user.value.info.history)
+      }
     }
 
     const entity = [
