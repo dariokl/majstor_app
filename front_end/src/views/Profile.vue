@@ -1,5 +1,8 @@
 <template>
   <div class="view-p">
+    <div v-if='message'>
+      <Message> {{message}}</Message>
+    </div>
     <div class="container">
       <div class="columns is-multilines no-margin">
         <div class="column is-paddingless">
@@ -132,11 +135,10 @@
                       {{ user.info.about }}
                     </p>
                   </div>
-                  <div v-else >
+                  <div v-else>
                     <p style="white-space: pre-line; text-align: left">
-                     Upisite iformacije o Vama !
+                      Upisite iformacije o Vama !
                     </p>
-
                   </div>
                 </div>
 
@@ -152,16 +154,14 @@
                     <button class="delete" aria-label="close"></button>
                   </header>
                   <section class="modal-card-body">
-                    
-                    <p>Upisite sto vise informacija o vama </p>
+                    <p>Upisite sto vise informacija o vama</p>
                     <Textarea
                       v-model="user.info.about"
                       :value="user.info.about"
-                      rows="5" cols="50"
-                
+                      rows="5"
+                      cols="50"
                     >
                     </Textarea>
-   
                   </section>
                   <footer class="modal-card-foot">
                     <button
@@ -179,7 +179,7 @@
             </div>
             <div class="mt-2 card contain-card top-border">
               <div class="card-title">
-                <h4>About {{user.company}}</h4>
+                <h4>About {{ user.company }}</h4>
                 <div class="button-wrapper">
                   <Button
                     label="Uredi profil"
@@ -398,54 +398,40 @@
                       </div>
                       <div class="block-content">
                         <div class="flex-inner">
-                          <i class='pi pi-mobile' />
- 
-                          <span>Call <a v-if='user.info.phone'>{{user.info.phone}}</a></span>
+                          <i class="pi pi-mobile" />
+
+                          <span
+                            >Call
+                            <a v-if="user.info.phone">{{
+                              user.info.phone
+                            }}</a></span
+                          >
                         </div>
                         <div class="flex-inner">
-                          <i class='pi pi-globe' />
-                          <span>Grad <a v-if='user.city'>{{user.city}}</a></span>
+                          <i class="pi pi-globe" />
+                          <span
+                            >Grad <a v-if="user.city">{{ user.city }}</a></span
+                          >
                         </div>
                         <div class="flex-inner">
-                          <i class='pi pi-globe' />
-            
-                          <span>Adresa <a v-if='user.address'>{{user.address}}</a></span>
+                          <i class="pi pi-globe" />
+
+                          <span
+                            >Adresa
+                            <a v-if="user.address">{{ user.address }}</a></span
+                          >
                         </div>
                       </div>
                       <div class="block-content">
-              
                         <div class="flex-inner">
-          
-                          <i class='pi pi-facebook' />
- 
-                          <span>Call <a v-if='user.info.facebook'>{{user.info.facebook}}</a></span>
-                        </div>
+                          <i class="pi pi-facebook" />
 
-                      </div>
-                    </div>
-
-                    <div class="about-block">
-                      <div class="block-header">
-                        <h4>More Info</h4>
-                      </div>
-                      <div class="block-content">
-                        <div class="flex-inner has-meta">
-                          <i class="mdi mdi-office-building"></i>
-                          <div class="meta">
-                            <span>Company</span>
-                            <span
-                              ></span
-                            >
-                          </div>
-                        </div>
-                        <div class="flex-inner has-meta">
-                          <i class="mdi mdi-earth"></i>
-                          <div class="meta">
-                            <span>Around the world</span>
-                            <span
-                              ></span
-                            >
-                          </div>
+                          <span
+                            >Call
+                            <a v-if="user.info.facebook">{{
+                              user.info.facebook
+                            }}</a></span
+                          >
                         </div>
                       </div>
                     </div>
@@ -453,22 +439,28 @@
 
                   <div class="column is-6">
                     <div class="about-block">
-                      
                       <div class="block-header">
                         <h4>History</h4>
-                  
                       </div>
-                      <div class="block-content ">
+                      <div class="block-content">
                         <div class="div has-text-right">
-                            
-                            <History :history='user.info.history' @user-history='handleHistory'> </History>
-                            </div>
-                        <div v-for='event in user.info.history' :key='event' class="history-block">
-                          <div class="date">{{event.date}}</div>
+                          <History
+                            :history="user.info.history"
+                            @history="handleHistory"
+                          >
+                          </History>
+                        </div>
+                        <div
+                          v-for="event in user.info.history"
+                          :key="event"
+                          class="history-block"
+                        >
+                          <div class="date">{{ event.date }}</div>
                           <div class="timeline">
                             <ul>
-                              <li>
-                                  {{event.description}}
+                              <li class="">
+                                {{ event.description }}
+                                <i class="pi pi-pencil" />
                               </li>
                             </ul>
                           </div>
@@ -479,10 +471,15 @@
                 </div>
               </div>
             </div>
-            <Portfolio :projects='user.projects' :check='user.portfolio' @handle-portfolio='currentUser'></Portfolio>
-        {{user}}
-            <!-- /timeline POST #5 -->
+            <Portfolio
+              :projects="user.projects"
+              :check="user.portfolio"
+              @handlePortfolio="currentUser"
+            ></Portfolio>
+            {{ user }}
+            <Skills/>
           </div>
+   
         </div>
       </div>
     </div>
@@ -491,25 +488,28 @@
 
 <script lang="ts">
 import UserWork from "@/modules/user.ts";
-import {User} from "@/modules/user.ts";
+import { User } from "@/modules/user.ts";
 import Portfolio from "../components/Portfolio.vue";
 import History from "../components/History.vue";
+import Skills from "../components/Skills.vue";
 import { onMounted, ref, reactive } from "vue";
 import axios from "axios";
 
 interface History {
-  date: ''
-  description: ''
+  date: "";
+  description: "";
 }
 export default {
   components: {
     Portfolio,
-    History
+    History,
+    Skills
   },
   setup() {
     const { currentUser, user, errorMessage } = UserWork();
     const display = ref(false);
     const displayEdit = ref(false);
+    const message = ref('')
 
     onMounted(() => {
       currentUser();
@@ -534,30 +534,20 @@ export default {
       axios
         .put("http://localhost:8000/users/edit", payload)
         .then((response) => {
-          console.log(payload);
+           message.value = 'Uspjesno ste izmijenili podatke !'
         });
     };
 
     const handleHistory = (payload: any) => {
-      console.log(user.value.info.history)
-      const data = [
-        payload
-      ]
+      console.log(user.value.info.history);
+      const data = [payload];
 
-      console.log(payload.value)
-  
       if (user.value.info.history) {
-        user.value.info.history.push(payload)
-
-        console.log('ima')
+        user.value.info.history.push(payload);
+      } else {
+        user.value.info.history = data;
       }
-
-      else {
-        user.value.info.history = data
-        console.log('nema')
-        console.log(user.value.info.history)
-      }
-    }
+    };
 
     const entity = [
       { name: "Federacija Bosne i Hercegovine" },
@@ -577,7 +567,8 @@ export default {
       editPayload,
       entity,
       currentUser,
-      handleHistory
+      handleHistory,
+      message
     };
   },
 };

@@ -3,7 +3,7 @@
     <div class="card-title ">
       <h4>Halo</h4>
       <div class="button-wrapper">
-        <Button icon="pi pi-plus" @click="openModal"></Button>
+        <Button icon="pi pi-plus" @click.prevent="openModal"></Button>
       </div>
     </div>
     <div class="about-body mt-1">
@@ -35,7 +35,7 @@
       <div v-else>
         <h4>Podjelite vase radove sa nama !</h4>
         <div class="column upload">
-          <i @click="openModal" class="pi pi-image" style="fontSize: 5rem"></i>
+          <i @click.prevent="openModal" class="pi pi-image" style="fontSize: 5rem"></i>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
           <button
             class="delete"
             aria-label="close"
-            @click="closeModal"
+            @click.prevent="closeModal"
           ></button>
         </header>
         <section class="modal-card-body">
@@ -77,7 +77,7 @@
           <button
             class="delete"
             aria-label="close"
-            @click="closeModal1"
+            @click.prevent="closeModal1"
           ></button>
         </header>
 
@@ -95,8 +95,8 @@
         </section>
         <footer class="modal-card-foot">
           {{projects[render].id}}
-          <button class="button is-danger" @click='deletePost(projects[render].id)'>Obrisi Objavu</button>
-          <button class="button" @click="closeModal1">Nazad</button>
+          <button class="button is-danger" @click.prevent='deletePost(projects[render].id)'>Obrisi Objavu</button>
+          <button class="button" @click.prevent="closeModal1">Nazad</button>
         </footer>
       </div>
     </div>
@@ -113,6 +113,7 @@ interface DeletePortfolio {
 export default {
   name: "Protfolio",
   props: ["projects", "images", 'check'],
+  emtis: ['handlePortfolio'],
   setup(props: any, {emit}: any) {
     /** Used in process of saving first images to the user profile display reffers to the modal that is used for inital image uploading  */
     const display = ref(false);

@@ -61,7 +61,7 @@ async def register(user: UserIn):
     db.session.refresh(new_user) 
     return new_user
 
-@router.put('/edit')
+@router.put('/edit', response_model=User)
 def edit_profile(edit: UserEidit = Body(...), Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
     currentuser_id = Authorize.get_jwt_subject()
