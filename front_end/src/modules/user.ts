@@ -25,6 +25,7 @@ export class User {
     phone: "";
     facebook: "";
     history: History[]
+    skills: {}[]
   };
   portfolio: boolean;
   projects: [Portfolio];
@@ -42,7 +43,8 @@ export default function UserWork() {
       entity: "",
       phone: "",
       facebook: "",
-      history: [{date: '', description: ''}]
+      history: [{date: '', description: ''}],
+      skills: []
     },
     portfolio: false,
     projects: [{ id: 0, name: "", description: "", link: "" }],

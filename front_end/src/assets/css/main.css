@@ -2,7 +2,11 @@ body {
     font-family: "Roboto","Segoe UI","Helvetica Neue",Arial,sans-serif;
     color: #344258;
 }
+p {
+  font-size: .95rem;
 
+  color: #757a91;
+}
 
 .view-p {
     background: #F4F4F4;

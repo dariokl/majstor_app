@@ -131,12 +131,12 @@
                 </div>
                 <div class="contain-body">
                   <div v-if="user.info.about">
-                    <p style="mt-1 white-space: pre-line; text-align: left">
+                    <p style="mt-2 white-space: pre-line; text-align: left">
                       {{ user.info.about }}
                     </p>
                   </div>
                   <div v-else>
-                    <p style="white-space: pre-line; text-align: left">
+                    <p style="mt-2 white-space: pre-line; text-align: left">
                       Upisite iformacije o Vama !
                     </p>
                   </div>
@@ -476,8 +476,8 @@
               :check="user.portfolio"
               @handlePortfolio="currentUser"
             ></Portfolio>
-            {{ user }}
-            <Skills/>
+    
+            <Skills :check="user.info.skills" :skillsdata='user.info.skills' @skills='handleSkill'/>
           </div>
    
         </div>
@@ -549,6 +549,17 @@ export default {
       }
     };
 
+    const handleSkill = (payload: any) => {
+      const data = [payload];
+
+      if (user.value.info.skills) {
+        user.value.info.skills.push(payload)
+      }
+      else {
+        user.value.info.skills = data
+      }
+    }
+
     const entity = [
       { name: "Federacija Bosne i Hercegovine" },
       { name: "Republika Srpska" },
@@ -568,6 +579,7 @@ export default {
       entity,
       currentUser,
       handleHistory,
+      handleSkill,
       message
     };
   },
