@@ -27,7 +27,31 @@
             <p>{{ skill.description }}</p>
           </div>
           <div class="column is-one-quarter">
-            <i class="pi pi-plus" @click='editModal(index)'/>
+            <div class="dropdown is-right" :class="{'is-active' : modalP1}">
+  <div class="dropdown-trigger">
+      <Button icon="pi pi-trash" class="p-button-rounded p-button-text" aria-haspopu="true" aria-controls='dropdown-menu2' @click='editModal(index)' 
+      style='color: #4a4a4a;' />
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+    <div class="dropdown-content">
+      <div class="dropdown-item">
+        <div class="button-wrappper">
+          <div class="columns">
+            <div class="column">
+              <i class="pi pi-info" aria-haspopu="true" aria-controls='dropdown-menu2' @click='editModal(index)'/>
+              <span> Potvrdite brisanje unosa ! </span>
+            </div>
+          </div>
+          <Button icon="pi pi-check" class="p-button-rounded p-button-text" />
+          <Button icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text" />
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+            
           </div>
         </div>
         <hr type="solid" />
@@ -128,6 +152,7 @@
         </footer>
       </div>
     </div>
+
     
   </div>
 </template>
@@ -136,7 +161,7 @@ import Vue from "vue";
 import { ref } from "vue";
 export default {
   props: ["skillsdata"],
-  emits: ["skills", 'check'],
+  emits: ["skills", 'check', 'deleteskills'],
   setup(props: any, { emit }: any) {
     const display = ref(false);
     const checked = ref(false);
@@ -178,9 +203,8 @@ export default {
     };
 
     const editModal = (payload: number) => {
-      console.log(payload)
-      render.value = payload
       modalP1.value = true
+      emit('deleteskills', payload)
     }
     return {
       openModal,
@@ -192,7 +216,9 @@ export default {
       getYear,
       loadSkill,
       push,
-      editModal
+      editModal,
+      modalP1,
+      render
     };
   },
 };

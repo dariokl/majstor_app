@@ -477,7 +477,7 @@
               @handlePortfolio="currentUser"
             ></Portfolio>
     
-            <Skills :check="user.info.skills" :skillsdata='user.info.skills' @skills='handleSkill'/>
+            <Skills :check="user.info.skills" :skillsdata='user.info.skills' @skills='handleSkill' @deleteskills='handleDeleteSkills'/>
           </div>
    
         </div>
@@ -560,6 +560,13 @@ export default {
       }
     }
 
+    const handleDeleteSkills = (payload : any) => {
+
+      user.value.info.skills.splice(payload, 1)
+      console.log(user.value.info.skills)
+      
+    }
+
     const entity = [
       { name: "Federacija Bosne i Hercegovine" },
       { name: "Republika Srpska" },
@@ -580,6 +587,7 @@ export default {
       currentUser,
       handleHistory,
       handleSkill,
+      handleDeleteSkills,
       message
     };
   },
