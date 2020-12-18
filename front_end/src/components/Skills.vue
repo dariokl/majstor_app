@@ -27,23 +27,23 @@
             <p>{{ skill.description }}</p>
           </div>
           <div class="column is-one-quarter">
-            <div class="dropdown is-right" :class="{'is-active' : modalP1}">
+            <div class="dropdown is-right" :id="+index" :class="{'is-active': index === render}">
   <div class="dropdown-trigger">
-      <Button icon="pi pi-trash" class="p-button-rounded p-button-text" aria-haspopu="true" aria-controls='dropdown-menu2' @click='editModal(index)' 
+      <Button icon="pi pi-trash" class="p-button-rounded p-button-text" aria-haspopu="true" :aria-controls=" 'dropdown-menu_'+ index " @click='editModal(index)' 
       style='color: #4a4a4a;' />
   </div>
-  <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+  <div class="dropdown-menu" :id=" 'dropdown-menu_'+ index " role="menu">
     <div class="dropdown-content">
       <div class="dropdown-item">
         <div class="button-wrappper">
           <div class="columns">
             <div class="column">
-              <i class="pi pi-info" aria-haspopu="true" aria-controls='dropdown-menu2' @click='editModal(index)'/>
+              <i class="pi pi-info" aria-haspopu="true" aria-controls='dropdown-menu2'/>
               <span> Potvrdite brisanje unosa ! </span>
             </div>
           </div>
-          <Button icon="pi pi-check" class="p-button-rounded p-button-text" />
-          <Button icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text" />
+          <Button icon="pi pi-check" class="p-button-rounded p-button-text" @click.prevent='deleteSkillEmitter'/>
+          <Button icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text" @click.prevent='closeP1Modal' />
           
         </div>
       </div>
@@ -167,6 +167,7 @@ export default {
     const checked = ref(false);
     const modalP1 = ref(false)
     const render = ref(null)
+    const drop = ref(null)
 
   
 
@@ -203,9 +204,19 @@ export default {
     };
 
     const editModal = (payload: number) => {
-      modalP1.value = true
-      emit('deleteskills', payload)
+      render.value = payload
     }
+
+    const deleteSkillEmitter = () => {
+      emit('deleteskills', render)
+      render.value = null
+    }
+
+    const closeP1Modal = () => {
+      render.value = null
+    }
+
+
     return {
       openModal,
       closeModal,
@@ -218,7 +229,10 @@ export default {
       push,
       editModal,
       modalP1,
-      render
+      render,
+      deleteSkillEmitter,
+      closeP1Modal,
+      drop
     };
   },
 };

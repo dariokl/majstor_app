@@ -1,6 +1,6 @@
 <template>
   <div class="view-p">
-    <div v-if='message'>
+    <div class='message' v-if='message'>
       <Message> {{message}}</Message>
     </div>
     <div class="container">
@@ -554,16 +554,19 @@ export default {
 
       if (user.value.info.skills) {
         user.value.info.skills.push(payload)
-      }
+        editPayload(user.value)
+
+}
       else {
         user.value.info.skills = data
+        editPayload(user.value)
       }
     }
 
     const handleDeleteSkills = (payload : any) => {
 
       user.value.info.skills.splice(payload, 1)
-      console.log(user.value.info.skills)
+      editPayload(user.value)
       
     }
 

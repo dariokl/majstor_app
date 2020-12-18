@@ -1,5 +1,5 @@
 <template>
-  <i class="pi pi-plus" @click.prevent="openModal()" />
+  <Button icon="pi pi-plus" class="p-button-rounded p-button-text" @click.prevent='openModal' style='color: #4a4a4a;'/>
   <div class="modal" :class="{ 'is-active': display }">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -9,9 +9,15 @@
       </header>
       <section class="modal-card-body">
         <div class="contaner-box">
-          <h4>License & Dostignuća</h4>
-          <hr />
+       
+                    <div class="column">
+            <p style="text-align: center">
+              Podjelite neke od vaznijih datuma sa vasim posjetiocima , npr Godina osnivanja poduzeca / obrta.
+            </p>
+            <hr type="solid" />
+          </div>
         </div>
+
 
         <div class="column is-12 ">
           <div class="p-inputgroup">
