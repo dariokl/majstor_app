@@ -42,6 +42,18 @@ p {
    
 }
 
+.history-block li i {
+  visibility:hidden;
+
+}
+
+
+.history-block li:hover i { 
+  transition: 2s;
+  color: #318C63;
+  visibility: visible;
+}
+
 
 
 .general-tab .subheader-start,

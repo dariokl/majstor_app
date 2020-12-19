@@ -13,7 +13,7 @@
             <div
               class="mx-1 column has-overlay"
               :id="index"
-              @click="checkModal(index)"
+              @click.prevent="checkModal(index)"
             >
               <img
                 src="https://tedswoodworkingreview2018.com/wp-content/uploads/2017/10/Wood-Wednesday.jpg"
@@ -142,7 +142,6 @@ export default {
 
     /** Simply changing the render const so we can render the right project to user  */
     const checkModal = (index: any) => {
-      console.log(index);
       modalP1.value = true;
       render.value = index;
       return index;

@@ -30,6 +30,7 @@ export class User {
   portfolio: boolean;
   projects: [Portfolio];
 }
+
 /** This is a description of the foo function. */
 export default function UserWork() {
   const user = ref<User>({

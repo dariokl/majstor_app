@@ -1,7 +1,7 @@
 <template>
   <div class="view-p">
-    <div class='message' v-if='message'>
-      <Message> {{message}}</Message>
+    <div class="message" v-if="message">
+      <Message> {{ message }}</Message>
     </div>
     <div class="container">
       <div class="columns is-multilines no-margin">
@@ -451,7 +451,7 @@
                           </History>
                         </div>
                         <div
-                          v-for="event in user.info.history"
+                          v-for="(event, index) in user.info.history"
                           :key="event"
                           class="history-block"
                         >
@@ -460,7 +460,56 @@
                             <ul>
                               <li class="">
                                 {{ event.description }}
-                                <i class="pi pi-pencil" />
+
+                                <div
+                                  class="dropdown is-right"
+                                  :id="+index"
+                                  :class="{ 'is-active': index === render }"
+                                >
+                                  <div class="dropdown-trigger">
+                                    <i
+                                      class="pi pi-trash"
+                                      style="margin-left: 6.7rem;"
+                                      @click.prevent="historyFetch(index)"
+                                    />
+                                  </div>
+                                  <div
+                                    class="dropdown-menu"
+                                    :id="'dropdown-menu_' + index"
+                                    role="menu"
+                                  >
+                                    <div class="dropdown-content">
+                                      <div class="dropdown-item">
+                                        <div class="button-wrappper">
+                                          <div class="columns">
+                                            <div class="column">
+                                              <i
+                                                class="pi pi-info"
+                                                aria-haspopu="true"
+                                                aria-controls="dropdown-menu2"
+                                              />
+                                              <span>
+                                                Potvrdite brisanje unosa !
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <Button
+                                            icon="pi pi-check"
+                                            class="p-button-rounded p-button-text"
+                                            @click.prevent="
+                                              deleteHistory(index)
+                                            "
+                                          />
+                                          <Button
+                                            icon="pi pi-times"
+                                            class="p-button-rounded p-button-danger p-button-text"
+                                            @click.prevent="closeHistory"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </li>
                             </ul>
                           </div>
@@ -476,10 +525,14 @@
               :check="user.portfolio"
               @handlePortfolio="currentUser"
             ></Portfolio>
-    
-            <Skills :check="user.info.skills" :skillsdata='user.info.skills' @skills='handleSkill' @deleteskills='handleDeleteSkills'/>
+
+            <Skills
+              :check="user.info.skills"
+              :skillsdata="user.info.skills"
+              @skills="handleSkill"
+              @deleteskills="handleDeleteSkills"
+            />
           </div>
-   
         </div>
       </div>
     </div>
@@ -503,17 +556,21 @@ export default {
   components: {
     Portfolio,
     History,
-    Skills
+    Skills,
   },
   setup() {
+
     const { currentUser, user, errorMessage } = UserWork();
     const display = ref(false);
     const displayEdit = ref(false);
-    const message = ref('')
+    const message = ref("");
+    const render = ref(null);
 
     onMounted(() => {
       currentUser();
     });
+
+    /** Modal area */
 
     const openMaximizable = () => {
       display.value = true;
@@ -530,45 +587,60 @@ export default {
       displayEdit.value = false;
     };
 
+    /** Core of view used to interact withback end route to provide all editing functions */
     const editPayload = (payload: User) => {
       axios
         .put("http://localhost:8000/users/edit", payload)
         .then((response) => {
-           message.value = 'Uspjesno ste izmijenili podatke !'
+          message.value = "Uspjesno ste izmijenili podatke !";
         });
     };
 
+    /** This block is resposible for history events */
+    const handleSkill = (payload: any) => {
+      const data = [payload];
+
+      if (user.value.info.skills) {
+        user.value.info.skills.push(payload);
+        editPayload(user.value);
+      } else {
+        user.value.info.skills = data;
+        editPayload(user.value);
+      }
+    };
+
+    const handleDeleteSkills = (payload: any) => {
+      user.value.info.skills.splice(payload, 1);
+      editPayload(user.value);
+    };
+
+    /** History block used to handle all the stuff happening in child component */
     const handleHistory = (payload: any) => {
       console.log(user.value.info.history);
       const data = [payload];
 
       if (user.value.info.history) {
         user.value.info.history.push(payload);
+        editPayload(user.value)
       } else {
         user.value.info.history = data;
+        editPayload(user.value)
       }
     };
 
-    const handleSkill = (payload: any) => {
-      const data = [payload];
+    const historyFetch = (payload: number) => {
+      render.value = payload;
+    };
 
-      if (user.value.info.skills) {
-        user.value.info.skills.push(payload)
-        editPayload(user.value)
+    const deleteHistory = (payload: number) => {
+      user.value.info.history.splice(payload, 1);
+      editPayload(user.value);
+      render.value = null;
+    };
 
-}
-      else {
-        user.value.info.skills = data
-        editPayload(user.value)
-      }
-    }
-
-    const handleDeleteSkills = (payload : any) => {
-
-      user.value.info.skills.splice(payload, 1)
-      editPayload(user.value)
-      
-    }
+    const closeHistory = () => {
+      render.value = null;
+    };
 
     const entity = [
       { name: "Federacija Bosne i Hercegovine" },
@@ -591,7 +663,11 @@ export default {
       handleHistory,
       handleSkill,
       handleDeleteSkills,
-      message
+      historyFetch,
+      deleteHistory,
+      closeHistory,
+      render,
+      message,
     };
   },
 };
