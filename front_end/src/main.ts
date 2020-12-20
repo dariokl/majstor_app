@@ -10,6 +10,7 @@ import Dropdown from "primevue/dropdown";
 import Textarea from "primevue/textarea";
 import FileUpload from "primevue/fileupload";
 import Checkbox from "primevue/checkbox";
+import ProgressBar from 'primevue/progressbar';
 
 
 import "primevue/resources/themes/nova-vue/theme.css";
@@ -25,6 +26,7 @@ createApp(App)
   .component("Textarea", Textarea)
   .component("FileUpload", FileUpload)
   .component("Checkbox", Checkbox)
+  .component("ProgressBar", ProgressBar)
   .use(router)
   .use(PrimeVue)
   .mount("#app");

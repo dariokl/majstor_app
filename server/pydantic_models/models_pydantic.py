@@ -16,6 +16,7 @@ class User(BaseModel):
     email: EmailStr
     info: Optional[dict]
     portfolio: bool
+    profile_completed: Optional[int]
 
     class Config():
         orm_mode = True

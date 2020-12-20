@@ -30,10 +30,10 @@ def login(user: LoginUser, Authorize: AuthJWT = Depends()):
 
             return {"access_token" : access_token}
     else:
-        raise HTTPException(status_code=401,detail="Bad username or password")
+        raise HTTPException(status_code=401, detail="Bad username or password")
 
 
-@router.get('/user', response_model=UserInfo)
+@router.get('/user', response_model=UserInfo, status_code=200)
 def user(Authorize: AuthJWT = Depends()):
     """
     Authorize using fastapi_jwt_auth taking the id of user to query db and provide data to front end
@@ -41,25 +41,31 @@ def user(Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
     currentuser_id = Authorize.get_jwt_subject()
     user = db.session.query(UserDB).filter(UserDB.id==currentuser_id).first()
-    done = db.session.query(UserDB).options(subqueryload(UserDB.projects)).filter(UserDB.id==currentuser_id).first()
+    user.verification()
+    user_response = db.session.query(UserDB).options(subqueryload(UserDB.projects)).filter(UserDB.id==currentuser_id).first()
 
-    all = user.projects
+
     
-    return done
+    return user_response
 
 
-@router.post('/register', response_model=User)
+@router.post('/register', status_code=200)
 async def register(user: UserIn):
     """
     Registration router taking the query parameters from UserIn pydantic model with password field to be provided
     """
-    new_user = UserDB(name=user.name, last_name=user.last_name, password=user.hashed_password, company_name=user.company_name, \
+
+    email_check = 'a'
+
+    if email_check == 1:
+        return HTTPException(status_code=422, detail={'message': 'Email je vec u upotrebi'})
+    else:
+        new_user = UserDB(name=user.name, last_name=user.last_name, password=user.hashed_password, company_name=user.company_name, \
         entity=user.entity, city=user.city, address=user.address, email=user.email)
-    
-    db.session.add(new_user)
-    db.session.commit()
-    db.session.refresh(new_user) 
-    return new_user
+        db.session.add(new_user)
+        db.session.commit()
+        db.session.refresh(new_user) 
+        return JSONResponse(status_code=200, content={'message': 'Uspjesno ste izvrsili registraciju'})
 
 @router.put('/edit', response_model=User)
 def edit_profile(edit: UserEidit = Body(...), Authorize: AuthJWT = Depends()):
@@ -68,6 +74,10 @@ def edit_profile(edit: UserEidit = Body(...), Authorize: AuthJWT = Depends()):
     user = db.session.query(UserDB).filter_by(id=currentuser_id).first()
     user.entity = edit.entity
     user.info = edit.info
+    if user.profile_completed == 100:
+        pass
+    else:
+        user.verification()
     db.session.commit()
     db.session.refresh(user)
 
@@ -131,11 +141,17 @@ def delete_post(id : DeletePortfolio, Authorize: AuthJWT = Depends()):
         
     return id
 
-@router.post('/done')
-def create_one():
 
-    new = PortfolioDB(user_id=2, name='a', link='a', description='a')
-    db.session.add(new)
-    db.session.commit()
+@router.get('/checkperc')
+def check_perc():
 
-    return {'a'}
+    user = db.session.query(UserDB).first()
+
+    a = user.verification()
+
+
+    return a
+
+
+
+

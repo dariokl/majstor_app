@@ -29,6 +29,7 @@ export class User {
   };
   portfolio: boolean;
   projects: [Portfolio];
+  profileCompleted: number
 }
 
 /** This is a description of the foo function. */
@@ -49,6 +50,7 @@ export default function UserWork() {
     },
     portfolio: false,
     projects: [{ id: 0, name: "", description: "", link: "" }],
+    profileCompleted: null
   });
   const token = ref(localStorage.getItem("user_token"));
   const errorMessage = ref("");

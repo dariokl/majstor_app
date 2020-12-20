@@ -36,14 +36,6 @@
               />
             </div>
             <div class="menu-end">
-              <Button
-                label="Plain"
-                class="mr-2 p-button p-component p-button-raised p-button-text"
-              />
-              <Button
-                label="Submit"
-                class="p-button p-component p-button-raised p-button-text"
-              />
             </div>
           </div>
 
@@ -53,15 +45,22 @@
               <span>Followers</span>
             </div>
             <div class="subheader-middle">
-              <h2>{{ user.name }}</h2>
-              <span>{{ user.last_name }}</span>
+              <h2>{{ user.name }} {{ user.last_name }}</h2>
+             <strong> <span>{{user.info.title}} </span> </strong>
+             <br>
+             <span> {{user.company_name}} </span>
+  <ProgressBar :value="user.profile_completed">
+    Percent Complete: {{user.profile_completed}}
+</ProgressBar>
             </div>
             <div class="subheader-end is-hidden-mobile"></div>
           </div>
         </div>
       </div>
       <div class="columns has-portrait-padding">
+
         <div class="mt-1 column is-4">
+                
           <div class="box-heading">
             <h4>Info</h4>
           </div>
@@ -69,6 +68,7 @@
           <div class="basic-infos-wrapper">
             <div class="card is-community">
               <h4>Community</h4>
+              
               <div class="flex-block">
                 <i class="pi pi-times"></i>
                 <p><a>Invite your friends</a> to follow this page</p>
@@ -113,10 +113,9 @@
 
         <div class="column is-8">
           <div class="box-heading">
-            <h4>Posts</h4>
+            <h4>Profil</h4>
             <div class="button-wrap">
-              <button type="button" class="button is-active">About</button>
-              <button type="button" class="button">Dashboard</button>
+      
             </div>
           </div>
 
