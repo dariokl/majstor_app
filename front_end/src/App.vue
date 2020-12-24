@@ -1,5 +1,8 @@
 <template>
-
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
 <div class="page-header">
   <input id="menu-toggle-input" type="checkbox" v-model="checking" />
   <label class="menu-toggle" for="menu-toggle-input">

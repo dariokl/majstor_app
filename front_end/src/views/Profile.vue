@@ -49,9 +49,9 @@
              <strong> <span>{{user.info.title}} </span> </strong>
              <br>
              <span> {{user.company_name}} </span>
-  <ProgressBar :value="user.profile_completed">
-    Percent Complete: {{user.profile_completed}}
+  <ProgressBar :value="user.profile_completed" style="height: .2em" class='mt-5'>
 </ProgressBar>
+<span> Verifikacija profila : {{user.profile_completed}} % </span>
             </div>
             <div class="subheader-end is-hidden-mobile"></div>
           </div>
@@ -68,8 +68,11 @@
           <div class="basic-infos-wrapper">
             <div class="card is-community">
               <h4>Community</h4>
-              
-              <div class="flex-block">
+              <div v-if='user.profile_completed == 100' class="flex-block">
+                <i class="material-icons">beenhere</i>
+                <p><a>Invite your friends</a> to follow this page</p>
+              </div>              
+              <div v-else class="flex-block">
                 <i class="pi pi-times"></i>
                 <p><a>Invite your friends</a> to follow this page</p>
               </div>
