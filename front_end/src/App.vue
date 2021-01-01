@@ -4,6 +4,7 @@
       rel="stylesheet">
 </head>
 <div class="page-header">
+
   <input id="menu-toggle-input" type="checkbox" v-model="checking" />
   <label class="menu-toggle" for="menu-toggle-input">
     <span></span>
@@ -13,7 +14,22 @@
     <span></span>
     <span></span>
   </label>
-
+        <div class="container">
+          <div class="colum has-text-left">
+     
+<div class="hover-effect3">
+	<ul>
+		<li><a href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
+		<li><a href="#." title="Twitter">  <i class="pi pi-bell p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
+		<li><a href="#." title="Google Plus"><i class="pi pi-comment p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
+    <li>
+    </li>
+	</ul>
+</div>
+          </div>
+         
+          
+        </div>
   <nav class="menu">
     <ol>
       <li class="menu-item" @click.prevent="closeMenu">

@@ -11,6 +11,8 @@ import Textarea from "primevue/textarea";
 import FileUpload from "primevue/fileupload";
 import Checkbox from "primevue/checkbox";
 import ProgressBar from 'primevue/progressbar';
+import Badge from 'primevue/badge';
+import BadgeDirective from 'primevue/badgedirective';
 
 
 import "primevue/resources/themes/nova-vue/theme.css";
@@ -27,6 +29,8 @@ createApp(App)
   .component("FileUpload", FileUpload)
   .component("Checkbox", Checkbox)
   .component("ProgressBar", ProgressBar)
+  .component("Badge", Badge)
   .use(router)
   .use(PrimeVue)
+  .directive("badge", BadgeDirective)
   .mount("#app");

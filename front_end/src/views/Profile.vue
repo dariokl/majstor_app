@@ -3,7 +3,7 @@
     <div class="message" v-if="message">
       <Message> {{ message }}</Message>
     </div>
-    <div class="container">
+    <div class="mt-5 container">
       <div class="columns is-multilines no-margin">
         <div class="column is-paddingless">
           <div class="cover-bg">
@@ -35,8 +35,7 @@
                 class="ml-2 p-button p-component p-button-raised p-button-text"
               />
             </div>
-            <div class="menu-end">
-            </div>
+            <div class="menu-end"></div>
           </div>
 
           <div class="general-tab">
@@ -46,21 +45,29 @@
             </div>
             <div class="subheader-middle">
               <h2>{{ user.name }} {{ user.last_name }}</h2>
-             <strong> <span>{{user.info.title}} </span> </strong>
-             <br>
-             <span> {{user.company_name}} </span>
-  <ProgressBar :value="user.profile_completed" style="height: .2em" class='mt-5'>
-</ProgressBar>
-<span> Verifikacija profila : {{user.profile_completed}} % </span>
+              <strong>
+                <span>{{ user.info.title }} </span>
+              </strong>
+              <br />
+              <span class="companyname"> {{ user.company_name }} </span>
+              <div class="container-progress">
+                <ProgressBar
+                  :value="user.profile_completed"
+                  style="height: .2em"
+                  class="mt-5"
+                >
+                </ProgressBar>
+                <span class="progress-status">
+                  Verifikacija profila : {{ user.profile_completed }} %
+                </span>
+              </div>
             </div>
             <div class="subheader-end is-hidden-mobile"></div>
           </div>
         </div>
       </div>
       <div class="columns has-portrait-padding">
-
         <div class="mt-1 column is-4">
-                
           <div class="box-heading">
             <h4>Info</h4>
           </div>
@@ -68,10 +75,10 @@
           <div class="basic-infos-wrapper">
             <div class="card is-community">
               <h4>Community</h4>
-              <div v-if='user.profile_completed == 100' class="flex-block">
+              <div v-if="user.profile_completed == 100" class="flex-block">
                 <i class="material-icons">beenhere</i>
                 <p><a>Invite your friends</a> to follow this page</p>
-              </div>              
+              </div>
               <div v-else class="flex-block">
                 <i class="pi pi-times"></i>
                 <p><a>Invite your friends</a> to follow this page</p>
@@ -117,9 +124,7 @@
         <div class="column is-8">
           <div class="box-heading">
             <h4>Profil</h4>
-            <div class="button-wrap">
-      
-            </div>
+            <div class="button-wrap"></div>
           </div>
 
           <div class="profile-timeline">
@@ -168,7 +173,7 @@
                   <footer class="modal-card-foot">
                     <button
                       class="button is-success"
-                      @click="editPayload(user), closeModalEdit"
+                      @click="editPayload(user), closeModalEdit()"
                     >
                       Save changes
                     </button>
@@ -424,6 +429,9 @@
                           >
                         </div>
                       </div>
+                      <div class="block-header">
+                        <h4> Socijalne Mreze </h4>
+                      </div>
                       <div class="block-content">
                         <div class="flex-inner">
                           <i class="pi pi-facebook" />
@@ -561,7 +569,6 @@ export default {
     Skills,
   },
   setup() {
-
     const { currentUser, user, errorMessage } = UserWork();
     const display = ref(false);
     const displayEdit = ref(false);
@@ -623,10 +630,10 @@ export default {
 
       if (user.value.info.history) {
         user.value.info.history.push(payload);
-        editPayload(user.value)
+        editPayload(user.value);
       } else {
         user.value.info.history = data;
-        editPayload(user.value)
+        editPayload(user.value);
       }
     };
 

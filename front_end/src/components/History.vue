@@ -56,7 +56,7 @@
         </div>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-success" @click.prevent="push(loadHistory)">
+        <button class="button is-success" @click.prevent="push(loadHistory), closeModal()">
           Save changes
         </button>
         <button class="button" @click.prevent="closeModal">Cancel</button>
