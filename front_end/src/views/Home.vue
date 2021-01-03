@@ -1,20 +1,20 @@
 <template>
-
-<div class="p-grid">
-	<div class="p-col">1</div>
-	<div class="p-col">2</div>
-	<div class="p-col">3</div>
-</div>
+  <HelloWorld />
+  <About />
 </template>
-
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import About from "./About.vue";
 
 @Options({
   components: {
-    HelloWorld
+    HelloWorld,
+    About
   }
 })
-export default class Home extends Vue {}
+
+
+export default class Home extends Vue {
+}
 </script>

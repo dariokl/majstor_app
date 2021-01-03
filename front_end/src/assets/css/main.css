@@ -20,16 +20,9 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-
-  /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
   font-feature-settings: "liga";
 }
 
@@ -164,25 +157,25 @@ h4 {
   -ms-flex-align: center;
   align-items: center;
 }
-/* line 399, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading h4 {
   font-weight: 500;
   padding: 0 6px;
 }
-/* line 404, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .heading-search {
   position: relative;
   margin-left: 10px;
 }
-/* line 408, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .heading-search input {
   padding-left: 38px;
 }
-/* line 413, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .heading-search input:focus + .search-icon svg {
   stroke: #5596e6;
 }
-/* line 420, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .heading-search .search-icon {
   position: absolute;
   top: 0;
@@ -199,7 +192,7 @@ h4 {
   -ms-flex-align: center;
   align-items: center;
 }
-/* line 430, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .heading-search .search-icon svg {
   height: 16px;
   width: 16px;
@@ -207,13 +200,13 @@ h4 {
   -webkit-transition: stroke 0.3s;
   transition: stroke 0.3s;
 }
-/* line 443, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .dropdown.photos-dropdown.is-active div > .button svg,
 .box-heading .dropdown.friends-dropdown.is-active div > .button svg {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-/* line 449, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .dropdown.photos-dropdown div > .button,
 .box-heading .dropdown.friends-dropdown div > .button {
   width: auto !important;
@@ -232,7 +225,7 @@ h4 {
   justify-content: space-between;
   border-radius: 100px;
 }
-/* line 460, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .dropdown.photos-dropdown div > .button svg,
 .box-heading .dropdown.friends-dropdown div > .button svg {
   height: 16px;
@@ -241,12 +234,12 @@ h4 {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-/* line 468, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .dropdown.photos-dropdown .dropdown-menu,
 .box-heading .dropdown.friends-dropdown .dropdown-menu {
   margin-top: 6px;
 }
-/* line 473, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .dropdown .button {
   width: 38px !important;
   height: 38px;
@@ -262,19 +255,19 @@ h4 {
   align-items: center;
   border-color: transparent;
 }
-/* line 482, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .dropdown .button svg {
   height: 20px;
   width: 20px;
   stroke: #888da8;
 }
-/* line 491, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .button-wrap .button {
   line-height: 0;
   width: 90px;
   font-weight: 500;
 }
-/* line 496, src/assets/scss/pages/_app-profile.scss */
+
 .box-heading .button-wrap .button.is-active {
   color: #5596e6;
   border-color: #5596e6;
@@ -287,7 +280,7 @@ h4 {
 .basic-infos-wrapper {
   padding-top: 10px;
 }
-/* line 567, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-profile-info .info-row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -300,45 +293,44 @@ h4 {
   align-items: center;
   padding: 10px 16px;
 }
-/* line 573, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-profile-info .info-row:not(:last-child) {
   border-bottom: 1px solid #e8e8e8;
 }
-/* line 577, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-profile-info .info-row span,
 .basic-infos-wrapper .is-profile-info .info-row a {
   display: block;
 }
-/* line 581, src/assets/scss/pages/_app-profile.scss */
 .basic-infos-wrapper .is-profile-info .info-row span {
   font-size: 0.85rem;
   font-weight: 500;
   color: #393a4f;
 }
-/* line 587, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-profile-info .info-row a {
   font-size: 0.9rem;
   font-weight: 400;
   color: #999;
 }
-/* line 593, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-profile-info .info-row i {
   font-size: 20px;
   color: #cecece;
   margin: 0 4px;
 }
-/* line 601, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community,
 .basic-infos-wrapper .is-about {
   padding: 16px;
 }
-/* line 604, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community h4,
 .basic-infos-wrapper .is-about h4 {
   margin-bottom: 16px;
   color: #999;
 }
-/* line 609, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community .flex-block,
 .basic-infos-wrapper .is-about .flex-block {
   display: -webkit-box;
@@ -349,34 +341,34 @@ h4 {
   align-items: center;
   margin: 16px 0;
 }
-/* line 614, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community .flex-block a,
 .basic-infos-wrapper .is-about .flex-block a {
   color: #393a4f;
   font-weight: 500;
 }
-/* line 618, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community .flex-block a:hover,
 .basic-infos-wrapper .is-about .flex-block a:hover {
   color: #5596e6;
 }
-/* line 623, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community .flex-block p,
 .basic-infos-wrapper .is-about .flex-block p {
   font-size: 0.8rem;
   margin-left: 12px;
 }
-/* line 628, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-community .flex-block svg,
 .basic-infos-wrapper .is-about .flex-block svg {
   height: 16px;
   width: 16px;
 }
-/* line 635, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-friendkit {
   padding: 16px;
 }
-/* line 638, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-friendkit .title-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -386,20 +378,20 @@ h4 {
   align-items: center;
   margin-bottom: 16px;
 }
-/* line 643, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-friendkit .title-wrap img {
   display: block;
   max-width: 30px;
 }
-/* line 648, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-friendkit .title-wrap h4 {
   color: #999;
 }
-/* line 653, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-friendkit p {
   font-size: 0.8rem;
 }
-/* line 657, src/assets/scss/pages/_app-profile.scss */
+
 .basic-infos-wrapper .is-friendkit .created {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -413,7 +405,7 @@ h4 {
 .contain-card {
   padding: 20px;
 }
-/* line 1614, src/assets/scss/pages/_app-profile.scss */
+
 .contain-card .card-title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -429,29 +421,25 @@ h4 {
 .top-border {
   border-top: 5px solid #318c63;
 }
-/* line 1620, src/assets/scss/pages/_app-profile.scss */
+
 .contain-card .card-title h4 {
   font-family: "Montserrat", sans-serif;
   color: #393a4f;
   font-size: 0.9rem;
 }
-/* line 1629, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-header {
   border-bottom: 1px solid #e8e8e8;
   padding: 10px 0;
 }
-/* line 1633, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-header h4 {
   text-transform: uppercase;
   font-size: 0.75rem;
   font-weight: 500;
   color: #999;
 }
-/* line 1641, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content {
   padding: 10px 0;
 }
-/* line 1644, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -461,14 +449,12 @@ h4 {
   align-items: center;
   margin: 10px 0;
 }
-/* line 1649, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner.has-meta {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
   margin: 16px 0;
 }
-/* line 1653, src/assets/scss/pages/_app-profile.scss */
 .contain-card
   .about-body
   .about-block
@@ -477,7 +463,6 @@ h4 {
   .meta {
   margin-left: 12px;
 }
-/* line 1656, src/assets/scss/pages/_app-profile.scss */
 .contain-card
   .about-body
   .about-block
@@ -488,7 +473,6 @@ h4 {
   display: block;
   padding: 0;
 }
-/* line 1660, src/assets/scss/pages/_app-profile.scss */
 .contain-card
   .about-body
   .about-block
@@ -499,7 +483,6 @@ h4 {
   font-weight: 500;
   color: #393a4f;
 }
-/* line 1665, src/assets/scss/pages/_app-profile.scss */
 .contain-card
   .about-body
   .about-block
@@ -510,46 +493,38 @@ h4 {
   color: #999;
   font-size: 0.85rem;
 }
-/* line 1673, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner .mdi {
   font-size: 24px;
   color: #999;
 }
-/* line 1678, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner svg {
   height: 16px;
   width: 16px;
   stroke: #999;
 }
-/* line 1684, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner span {
   display: block;
   font-size: 0.9rem;
   padding: 0 10px;
 }
-/* line 1689, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner span a {
   color: #999;
 }
-/* line 1692, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .flex-inner span a:hover {
   color: #5596e6;
 }
-/* line 1699, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .history-block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 10px;
 }
-/* line 1703, src/assets/scss/pages/_app-profile.scss */
 .contain-card .about-body .about-block .block-content .history-block .date {
   font-weight: 500;
   font-size: 0.9rem;
   color: #393a4f;
   margin-left: 8px;
 }
-/* line 1711, src/assets/scss/pages/_app-profile.scss */
 .contain-card
   .about-body
   .about-block
@@ -560,7 +535,6 @@ h4 {
   list-style-type: disc;
   padding-left: 30px;
 }
-/* line 1715, src/assets/scss/pages/_app-profile.scss */
 .contain-card
   .about-body
   .about-block
@@ -756,3 +730,4 @@ hover-effect3 {text-align: right; }
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
 }
+

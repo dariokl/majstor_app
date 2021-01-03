@@ -421,7 +421,7 @@
                           >
                         </div>
                         <div class="flex-inner">
-                          <i class="pi pi-globe" />
+                          <i class="pi pi-compass" />
 
                           <span
                             >Adresa
