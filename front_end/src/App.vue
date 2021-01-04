@@ -10,8 +10,12 @@
     <span></span>
     <span></span>
   </label>
+
         <div class="container">
-          <div class="colum has-text-left">
+          <div v-if='errorMessage' class="column has-text-right">
+            <p> {{errorMessage}}</p>
+          </div>
+          <div v-else class="column has-text-left">
      
 <div class="hover-effect3">
 	<ul>
@@ -89,12 +93,19 @@ $primaryColor: red;
 </style>
 <script lang='ts'>
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Home from 'Home.vue';
+import UserWork from '@/modules/user.ts'
 
 export default {
   setup() {
     const checking = ref(false);
+
+    const {currentUser, errorMessage} = UserWork()
+
+    onMounted(() => {
+      currentUser();
+    });
 
     function closeMenu() {
       checking.value = false;
@@ -102,7 +113,8 @@ export default {
 
     return {
       closeMenu,
-      checking
+      checking,
+      errorMessage
     };
   }
 };

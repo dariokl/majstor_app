@@ -52,6 +52,7 @@ export default function UserWork() {
     projects: [{ id: 0, name: "", description: "", link: "" }],
     profileCompleted: null
   });
+
   const token = ref(localStorage.getItem("user_token"));
   const errorMessage = ref("");
   const loggedIn = ref("false");
@@ -77,8 +78,10 @@ export default function UserWork() {
       .then((response) => {
         user.value = response.data;
       })
-      .catch((error) => (errorMessage.value = error.detail));
+      .catch((error) => (errorMessage.value = error.response.data.detail));
   };
+
+
 
   return { user, login, currentUser, errorMessage };
 }
