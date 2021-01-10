@@ -18,8 +18,12 @@ class User(BaseModel):
     portfolio: bool
     profile_completed: Optional[int]
 
-    class Config():
+    class Config:
         orm_mode = True
+
+
+
+
 
 class UserIn(User):
     """
@@ -27,7 +31,7 @@ class UserIn(User):
     """
     hashed_password: str
 
-class Portoflio(BaseModel):
+class Portfolio(BaseModel):
     """
     Single portfolio item defined to contain name , description and link from the Portfolio database model.
     """
@@ -47,7 +51,26 @@ class UserInfo(User):
     """
     One user can have up to 3 portfolios so this model contain list of model Portfolio.
     """
-    projects: List[Portoflio]
+    projects: List[Portfolio]
+
+    class Config:
+        orm_mode = True
+
+class UserList(BaseModel):
+    name: str
+    last_name: str
+    company_name: str
+    entity: str
+    address: str
+    email: EmailStr
+    info: Optional[dict]
+    projects: List[Portfolio]
+
+    class Config:
+        orm_mode = True
+
+class UserQuery(BaseModel):
+    users: List[UserList] = []
 
     class Config:
         orm_mode = True
@@ -68,4 +91,5 @@ class LoginUser(BaseModel):
     email: EmailStr
     password: str
 
-
+class Search(BaseModel):
+    q : str

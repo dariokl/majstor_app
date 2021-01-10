@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import LoginView from "../views/LoginView.vue";
 import Profile from '../views/Profile.vue';
+import Qsearch from '../views/Qsearch.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,6 +28,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/q/:search',
+    name: 'Search',
+    component: Qsearch,
+  
   }
 
 ];

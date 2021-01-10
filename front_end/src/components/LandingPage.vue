@@ -192,18 +192,17 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import axios from 'axios';
+import {ref} from 'vue';
+import router from "@/router/index.ts";
+
 
 export default {
     setup() {
+      const q = 'alo'
         const query = () => {
-            axios
-            .post('http://127.0.0.1:8000/q/', 'aa')
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log('error')
-            })
+
+        router.push({ path: `/q/${q}` });
+
         }
 
         return {
