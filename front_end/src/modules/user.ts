@@ -31,6 +31,9 @@ export class User {
   projects: [Portfolio];
   profileCompleted: number
 }
+interface UsersList {
+  users: [User]
+}
 
 /** This is a description of the foo function. */
 export default function UserWork() {
@@ -52,6 +55,8 @@ export default function UserWork() {
     projects: [{ id: 0, name: "", description: "", link: "" }],
     profileCompleted: null
   });
+
+  const users = ref<UsersList>({users: [{} as User] })
 
   const token = ref(localStorage.getItem("user_token"));
   const errorMessage = ref("");
@@ -83,5 +88,5 @@ export default function UserWork() {
 
 
 
-  return { user, login, currentUser, errorMessage };
+  return { user, login, currentUser, errorMessage, users};
 }

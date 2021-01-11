@@ -2,7 +2,8 @@
 <div class="view-p">
 <div class="container">
 
-<div class="mt-6 colum">
+
+<div v-for='user in users.users' :key='user.id' class="mt-6 colum">
 <div class="box">
   <article class="media">
     <div class="media-left">
@@ -14,9 +15,9 @@
     <div class="media-content meta-left">
       <div class="content">
         <p style=''>
-          <span class='company-name'>John Smith</span> 
+          <span class='company-name'>{{user.company_name}}</span> 
           <br>
-          <span><small>@johnsmith</small> <small>31m</small></span>
+          <span><small>{{user.entity}}</small>, <small>{{user.city}}</small>, <small>{{user.address}}</small></span>
           <br>
           <i class='idot mt-3 pi pi-circle-off' style='fontSize: 0.7rem;' />
           <span class='dot'> 3 </span>
@@ -45,6 +46,8 @@
                                                 </div>
                                             </div>
 
+                                         
+
     </div>
 
   </article>
@@ -62,22 +65,25 @@ import Vue from 'vue';
 import {onMounted, ref} from 'vue'
 import {useRoute} from 'vue-router';
 import axios from 'axios';
+import UserWork from '@/modules/user.ts'
 export default {
     setup () {
         const a = 10;
         const b = ref('a')
         const route = useRoute()
+        const {users} = UserWork()
 
             onMounted(() => {
       axios.post('http://127.0.0.1:8000/q', {q: route.params.search})
       .then((response) =>
-      b.value = response.data.message)
+      users.value = response.data)
     })
 
 
         return {
             a,
-            b
+            b,
+            users
         }
         
     }

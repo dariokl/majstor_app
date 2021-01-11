@@ -58,22 +58,12 @@ class UserInfo(User):
 
 class UserList(BaseModel):
     name: str
-    last_name: str
-    company_name: str
-    entity: str
-    address: str
-    email: EmailStr
-    info: Optional[dict]
-    projects: List[Portfolio]
+
 
     class Config:
         orm_mode = True
 
-class UserQuery(BaseModel):
-    users: List[UserList] = []
 
-    class Config:
-        orm_mode = True
 
 
 class UserEidit(BaseModel):
@@ -87,9 +77,19 @@ class UserEidit(BaseModel):
     address: str
     info: Optional[dict]
 
+    class Config:
+        orm_mode = True
+
 class LoginUser(BaseModel):
     email: EmailStr
     password: str
 
 class Search(BaseModel):
     q : str
+
+
+class UserQuery(BaseModel):
+    users: List[User] = []
+
+    class Config:
+        orm_mode = True

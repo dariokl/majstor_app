@@ -19,17 +19,24 @@ class User(Base):
     id = Column(Integer , primary_key=True, index=True)
     name = Column(String)
     last_name = Column(String)
-    company_name = Column(String)
-    entity = Column(String)
-    city = Column(String)
-    address = Column(String)
+    company_name = Column(String, unique=True)
+    entity = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    address = Column(String, nullable=False)
     email = Column(String, unique=True)
-    hashed_password = Column(String)
+    hashed_password = Column(String, nullable=False)
     portfolio = Column(Boolean, default=False)
     info = Column(JSON, nullable=False, default=dict, server_default='{}')
     profile_completed = Column(Integer, default=0)
 
     projects = relationship('Portfolio', backref='projects')
+
+
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+
+
 
     @property
     def password(self):
@@ -73,15 +80,6 @@ class User(Base):
         return self.profile_completed
         
     
-        
-
-
-class Comments(Base):
-    __tablename__ = 'comments'
-
-    id = Column(Integer, primary_key=True)
-    text = Column(TEXT)
-
 
 class Portfolio(Base):
     __tablename__ = 'portfolios'

@@ -6,24 +6,16 @@ from fastapi_sqlalchemy import db
 from pydantic_models.models_pydantic import Search, User, UserQuery
 from db_models.models_db import User as UserDB
 
-from pydantic_sqlalchemy import sqlalchemy_to_pydantic
 
 router = APIRouter()
-PydanticModel = sqlalchemy_to_pydantic(UserDB)
 
-class Py(PydanticModel):
-    mom = List[PydanticModel] = []
 
-@router.post('/')
+
+@router.post('/', response_model=UserQuery)
 def q_search(q: Search):
 
-    query = db.session.query(UserDB).all()
+    query = UserQuery(users=db.session.query(UserDB).all())
 
-    PydanticModel = sqlalchemy_to_pydantic(UserDB)
-
-    query_u = Py.from_orm(query)
-
-    query_py = query_u.dict()
-    return query_py
+    return query
 
 
