@@ -19,14 +19,5 @@ def q_search(q: Search):
 
     return query
 
-@router.post('/m')
-def m():
-
-    new = Message(sender_id=1, recipient_id=2, body='alooo aj vam')
-    db.session.add(new)
-    db.session.commit()
-    db.session.close()
-
-    return 'aaa'
 
 

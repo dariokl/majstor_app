@@ -543,6 +543,7 @@
               @deleteskills="handleDeleteSkills"
             />
           </div>
+          {{state}}
         </div>
       </div>
     </div>
@@ -568,8 +569,8 @@ export default {
     History,
     Skills,
   },
-  setup() {
-    const { currentUser, user, errorMessage } = UserWork();
+   setup() {
+    const { currentUser, user, errorMessage} = UserWork();
     const display = ref(false);
     const displayEdit = ref(false);
     const message = ref("");

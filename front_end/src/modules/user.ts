@@ -1,4 +1,4 @@
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import axios from "axios";
 import router from "@/router/index.ts";
 
@@ -24,45 +24,46 @@ export class User {
     entity: "";
     phone: "";
     facebook: "";
-    history: History[]
-    skills: {}[]
+    history: History[];
+    skills: {}[];
   };
   portfolio: boolean;
   projects: [Portfolio];
-  profileCompleted: number
-  messageCounter: number
+  profileCompleted: number;
+  messageCounter: number;
+  loggedIn: boolean
 }
 interface UsersList {
-  users: [User]
+  users: [User];
 }
 
+const user = ref<User>({
+  name: "",
+  lastName: "",
+  email: "",
+  entity: "",
+  info: {
+    title: "",
+    about: "",
+    entity: "",
+    phone: "",
+    facebook: "",
+    history: [{ date: "", description: "" }],
+    skills: [],
+  },
+  portfolio: false,
+  projects: [{ id: 0, name: "", description: "", link: "" }],
+  profileCompleted: null,
+  messageCounter: null,
+  loggedIn: false
+});
+
+const users = ref<UsersList>({ users: [{} as User] });
 /** This is a description of the foo function. */
 export default function UserWork() {
-  const user = ref<User>({
-    name: "",
-    lastName: "",
-    email: "",
-    entity: "",
-    info: {
-      title: "",
-      about: "",
-      entity: "",
-      phone: "",
-      facebook: "",
-      history: [{date: '', description: ''}],
-      skills: []
-    },
-    portfolio: false,
-    projects: [{ id: 0, name: "", description: "", link: "" }],
-    profileCompleted: null,
-    messageCounter: null
-  });
-
-  const users = ref<UsersList>({users: [{} as User] })
-
   const token = ref(localStorage.getItem("user_token"));
   const errorMessage = ref("");
-  const loggedIn = ref("false");
+  const loggedIn = ref(false);
 
   axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
 
@@ -71,25 +72,36 @@ export default function UserWork() {
       .post("http://127.0.0.1:8000/users/login", payload)
       .then((response) => {
         localStorage.setItem("user_token", response.data.access_token);
-        console.log(token.value);
-        router.push("/profile");
+        console.log(loggedIn.value);
+        router.push('/')
       })
       .catch((error) => {
         errorMessage.value = error.response.data.detail;
       });
   };
 
+  const logout = () => {
+    user.value.loggedIn = false
+  }
+
   const currentUser = () => {
     axios
       .get("http://127.0.0.1:8000/users/user")
       .then((response) => {
         user.value = response.data;
-        console.log(response.data)
+        user.value.loggedIn = true
       })
       .catch((error) => (errorMessage.value = error.response.data.detail));
+
   };
 
-
-
-  return { user, login, currentUser, errorMessage, users};
+  return {
+    user,
+    login,
+    currentUser,
+    errorMessage,
+    users,
+    logout
+    
+  };
 }

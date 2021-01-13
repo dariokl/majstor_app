@@ -10,16 +10,17 @@
     <span></span>
     <span></span>
   </label>
-
-        <div class="container">
-          <div v-if='errorMessage' class="column has-text-right">
+   {{user}}
+        <div v-if='user.loggedIn === true ' class="container">
+          <div  class="column has-text-right">
             <p> {{errorMessage}}</p>
 
           </div>
-          <div v-else class="column has-text-left">
+          <div class="column has-text-left">
      
-<div class="hover-effect3" style='height: 0px'>
+<div else class="hover-effect3" style='height: 0px'>
 	<ul>
+
     
 		<li ><a v-if='user.message_counter > 0' href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a>
     <a v-else href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" ></i></a></li>
@@ -27,11 +28,15 @@
 		<li><a href="#." title="Twitter">  <i class="pi pi-bell p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
 		<li><a href="#." title="Google Plus"><i class="pi pi-comment p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
 
+ 
     <li>
     </li>
 	</ul>
 </div>
+
           </div>
+
+         
          
           
         </div>
@@ -105,24 +110,18 @@ import Home from 'Home.vue';
 import UserWork from '@/modules/user.ts'
 
 export default {
-  setup() {
+   setup() {
     const checking = ref(false);
 
     const {currentUser, errorMessage, user} = UserWork()
 
-    onMounted(() => {
+
+        onMounted(() => {
       currentUser();
     });
 
-    const simple = ref(false)
 
-    function messageCounter() {
-      if (user.value.messageCounter > 0)
-      return true
-      else {
-        return false
-      }
-    }
+    
 
     function closeMenu() {
       checking.value = false;
@@ -132,9 +131,8 @@ export default {
       closeMenu,
       checking,
       errorMessage,
-      messageCounter,
       user,
-      simple
+    
     };
   }
 };
