@@ -42,9 +42,8 @@ def user(Authorize: AuthJWT = Depends()):
     currentuser_id = Authorize.get_jwt_subject()
     user = db.session.query(UserDB).filter(UserDB.id==currentuser_id).first()
     user.verification()
+    user.new_messages()
     user_response = db.session.query(UserDB).options(subqueryload(UserDB.projects)).filter(UserDB.id==currentuser_id).first()
-
-
     
     return user_response
 

@@ -30,6 +30,7 @@ export class User {
   portfolio: boolean;
   projects: [Portfolio];
   profileCompleted: number
+  messageCounter: number
 }
 interface UsersList {
   users: [User]
@@ -53,7 +54,8 @@ export default function UserWork() {
     },
     portfolio: false,
     projects: [{ id: 0, name: "", description: "", link: "" }],
-    profileCompleted: null
+    profileCompleted: null,
+    messageCounter: null
   });
 
   const users = ref<UsersList>({users: [{} as User] })
@@ -82,6 +84,7 @@ export default function UserWork() {
       .get("http://127.0.0.1:8000/users/user")
       .then((response) => {
         user.value = response.data;
+        console.log(response.data)
       })
       .catch((error) => (errorMessage.value = error.response.data.detail));
   };

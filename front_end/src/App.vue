@@ -14,14 +14,19 @@
         <div class="container">
           <div v-if='errorMessage' class="column has-text-right">
             <p> {{errorMessage}}</p>
+
           </div>
           <div v-else class="column has-text-left">
      
-<div class="hover-effect3">
+<div class="hover-effect3" style='height: 0px'>
 	<ul>
-		<li><a href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
+    
+		<li ><a v-if='user.message_counter > 0' href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a>
+    <a v-else href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" ></i></a></li>
+    		
 		<li><a href="#." title="Twitter">  <i class="pi pi-bell p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
 		<li><a href="#." title="Google Plus"><i class="pi pi-comment p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
+
     <li>
     </li>
 	</ul>
@@ -89,7 +94,9 @@
   color: blue;
 }
 
-$primaryColor: red;
+.do-it {
+  background: red;
+}
 </style>
 <script lang='ts'>
 import { useRoute } from "vue-router";
@@ -101,11 +108,21 @@ export default {
   setup() {
     const checking = ref(false);
 
-    const {currentUser, errorMessage} = UserWork()
+    const {currentUser, errorMessage, user} = UserWork()
 
     onMounted(() => {
       currentUser();
     });
+
+    const simple = ref(false)
+
+    function messageCounter() {
+      if (user.value.messageCounter > 0)
+      return true
+      else {
+        return false
+      }
+    }
 
     function closeMenu() {
       checking.value = false;
@@ -114,7 +131,10 @@ export default {
     return {
       closeMenu,
       checking,
-      errorMessage
+      errorMessage,
+      messageCounter,
+      user,
+      simple
     };
   }
 };

@@ -17,6 +17,7 @@ class User(BaseModel):
     info: Optional[dict]
     portfolio: bool
     profile_completed: Optional[int]
+    message_counter: int
 
     class Config:
         orm_mode = True
