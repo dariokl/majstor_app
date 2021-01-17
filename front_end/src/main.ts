@@ -13,6 +13,7 @@ import Checkbox from "primevue/checkbox";
 import ProgressBar from 'primevue/progressbar';
 import Badge from 'primevue/badge';
 import BadgeDirective from 'primevue/badgedirective';
+import Skeleton from 'primevue/skeleton';
 
 
 
@@ -31,6 +32,7 @@ createApp(App)
   .component("Checkbox", Checkbox)
   .component("ProgressBar", ProgressBar)
   .component("Badge", Badge)
+  .component("Skeleton", Skeleton)
   .use(router)
   .use(PrimeVue)
   .directive("badge", BadgeDirective)

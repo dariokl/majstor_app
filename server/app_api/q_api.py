@@ -19,5 +19,11 @@ def q_search(q: Search):
 
     return query
 
+@router.post('/q')
+def new():
 
+    new = Message(sender_id=1, recipient_id=2, body='Neka neka evo peka')
+    db.session.add(new)
+    db.session.commit()
 
+    return 'a'

@@ -23,9 +23,6 @@ class User(BaseModel):
         orm_mode = True
 
 
-
-
-
 class UserIn(User):
     """
     Check the models_db.py to understand the hashing method.
@@ -44,10 +41,18 @@ class Portfolio(BaseModel):
     class Config:
         orm_mode = True
 
+class Message(BaseModel):
+    id: int
+    sender_id: int
+    company_name: str
+    body: str
+
+    class Config:
+        orm_mode = True
+
 class DeletePortfolio(BaseModel):
     id: int
 
-    
 class UserInfo(User):
     """
     One user can have up to 3 portfolios so this model contain list of model Portfolio.
@@ -65,9 +70,7 @@ class UserList(BaseModel):
         orm_mode = True
 
 
-
-
-class UserEidit(BaseModel):
+class UserEdit(BaseModel):
     """
     Model used to edit informations for existing users.
     """
@@ -88,9 +91,14 @@ class LoginUser(BaseModel):
 class Search(BaseModel):
     q : str
 
-
 class UserQuery(BaseModel):
     users: List[User] = []
+
+    class Config:
+        orm_mode = True
+
+class Inbox(BaseModel):
+    inbox: List[Message]
 
     class Config:
         orm_mode = True

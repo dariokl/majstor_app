@@ -7,14 +7,18 @@ from fastapi_jwt_auth import AuthJWT
 
 from db_models.models_db import User as UserDB
 from db_models.models_db import Portfolio as PortfolioDB
+from db_models.models_db import Message as MessageDB
 
-from pydantic_models.models_pydantic import User, UserIn, LoginUser, UserEidit, UserInfo, DeletePortfolio
+from pydantic_models.models_pydantic import User, UserIn, LoginUser, UserEdit, UserInfo, DeletePortfolio, Inbox, Message
 
 from datetime import datetime, timedelta
 from typing import Optional, Union, Dict, Any
 
 from sqlalchemy.orm import contains_eager, subqueryload
 from fastapi_sqlalchemy import db  
+
+
+from typing import List
 
 router = APIRouter()
 
@@ -44,8 +48,27 @@ def user(Authorize: AuthJWT = Depends()):
     user.verification()
     user.new_messages()
     user_response = db.session.query(UserDB).options(subqueryload(UserDB.projects)).filter(UserDB.id==currentuser_id).first()
+
     
     return user_response
+
+@router.get('/inboxq', response_model=Inbox)
+def inboxq(Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
+    current_id = Authorize.get_jwt_subject()
+
+    all_messages = db.session.query(MessageDB).filter(MessageDB.recipient_id==current_id).all()
+    messages = []
+
+
+    for message in all_messages:
+        messages.append({'id': message.id, 'sender_id': message.sender_id, 'body': message.body, 'company_name': message.author.company_name})
+
+
+    inbox = Inbox(inbox=messages)
+
+
+    return inbox
 
 
 @router.post('/register', status_code=200)
@@ -67,7 +90,7 @@ async def register(user: UserIn):
         return JSONResponse(status_code=200, content={'message': 'Uspjesno ste izvrsili registraciju'})
 
 @router.put('/edit', response_model=User)
-def edit_profile(edit: UserEidit = Body(...), Authorize: AuthJWT = Depends()):
+def edit_profile(edit: UserEdit = Body(...), Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
     currentuser_id = Authorize.get_jwt_subject()
     user = db.session.query(UserDB).filter_by(id=currentuser_id).first()

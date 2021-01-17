@@ -1,82 +1,125 @@
 <template>
-<div class="page-header">
+  <div class="page-header">
+    {{loading}}
+    <input id="menu-toggle-input" type="checkbox" v-model="checking" />
+    <label class="menu-toggle" for="menu-toggle-input">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <div  class="container" style='bottom: 15px;'>
+      <div v-if="user.loggedIn === false"  class="column has-text-right">
+        <p>{{ errorMessage }}</p>
+       
+      </div>
+      <div v-else class="column has-text-left">
+        <div else class="hover-effect3" style="height: 0px">
+          <ul>
+            <li>
+              <a v-if="user.message_counter > 0" href="#." title="Facebook" @click.prevent='inboxq(inboxM), openInbox()'>
+                <div class="mt-5 dropdown is-left" :class="{'is-active': inboxM}">
 
-  <input id="menu-toggle-input" type="checkbox" v-model="checking" />
-  <label class="menu-toggle" for="menu-toggle-input">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </label>
-   {{user}}
-        <div v-if='user.loggedIn === true ' class="container">
-          <div  class="column has-text-right">
-            <p> {{errorMessage}}</p>
+  <div v-if='loading === true' class="dropdown-menu" id="dropdown-menu6" role="menu">
+<Skeleton />
+<Skeleton />
+  </div>
+    <div v-else class="dropdown-menu" id="dropdown-menu6" role="menu">
+    <div class="dropdown-content">
+      <div v-for='message in user.inbox' :key='message.body' class="dropdown-item" style='min-width: 250px;'>
+        <div class="is-flex is-justify-content-space-between ">
+                        <figure class="image is-rounded is-64x64">
+        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+      </figure> 
+      <p class='has-text-centered'> <strong> {{message.company_name}} </strong> <br> {{message.body}}</p>
 
-          </div>
-          <div class="column has-text-left">
-     
-<div else class="hover-effect3" style='height: 0px'>
-	<ul>
+        </div>
+                <hr class="dropdown-divider">
+      </div>
 
-    
-		<li ><a v-if='user.message_counter > 0' href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a>
-    <a v-else href="#." title="Facebook">  <i class="pi pi-envelope p-text-secondary" style="font-size: 1.2rem" ></i></a></li>
-    		
-		<li><a href="#." title="Twitter">  <i class="pi pi-bell p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
-		<li><a href="#." title="Google Plus"><i class="pi pi-comment p-text-secondary" style="font-size: 1.2rem" v-badge.success=""></i></a></li>
-
- 
-    <li>
-    </li>
-	</ul>
+    </div>
+  </div>
 </div>
 
-          </div>
+                <i
+                  class="pi pi-envelope p-text-secondary"
+                  style="font-size: 1.2rem"
+                  v-badge.success=""
+                ></i
+              ></a>
+              <a v-else href="#." title="Facebook">
+                <i
+                  class="pi pi-envelope p-text-secondary"
+                  style="font-size: 1.2rem"
+                ></i
+              ></a>
+            </li>
 
-         
-         
-          
+            <li>
+              <a href="#." title="Twitter">
+                <i
+                  class="pi pi-bell p-text-secondary"
+                  style="font-size: 1.2rem"
+                  v-badge.success=""
+                ></i
+              ></a>
+            </li>
+            <li>
+              <a href="#." title="Google Plus"
+                ><i
+                  class="pi pi-comment p-text-secondary"
+                  style="font-size: 1.2rem"
+                  v-badge.success=""
+                ></i
+              ></a>
+            </li>
+
+            <li></li>
+          </ul>
         </div>
-  <nav class="menu">
-    <ol>
-      <li class="menu-item" @click.prevent="closeMenu">
-        <router-link to="/">Home</router-link>
-      </li>
-      <li class="menu-item" @click.prevent="closeMenu">
-        <router-link to="/about">About</router-link>
-      </li>
-      <li class="menu-item">
-        <a href="#0">Widgets</a>
-        <ol class="sub-menu">
-          <li class="menu-item" @click.prevent='closeMenu'><router-link to='/profile'>Profile</router-link></li>
-          <li class="menu-item"><a href="#0">Bigger Widgets</a></li>
-          <li class="menu-item"><a href="#0">Huge Widgets</a></li>
-        </ol>
-      </li>
-      <li class="menu-item">
-        <a href="#0">Kabobs</a>
-        <ol class="sub-menu">
-          <li class="menu-item"><a href="#0">Shishkabobs</a></li>
-          <li class="menu-item"><a href="#0">BBQ kabobs</a></li>
-          <li class="menu-item"><a href="#0">Summer kabobs</a></li>
-        </ol>
-      </li>
-      <li class="menu-item"><a href="#0">Contact</a></li>
-    </ol>
-  </nav>
+      </div>
+    </div>
+    <nav class="menu">
+      <ol>
+        <li class="menu-item" @click.prevent="closeMenu">
+          <router-link to="/">Home</router-link>
+        </li>
+        <li class="menu-item" @click.prevent="closeMenu">
+          <router-link to="/about">About</router-link>
+        </li>
+        <li class="menu-item">
+          <a href="#0">Widgets</a>
+          <ol class="sub-menu">
+            <li class="menu-item" @click.prevent="closeMenu">
+              <router-link to="/profile">Profile</router-link>
+            </li>
+            <li class="menu-item"><a href="#0">Bigger Widgets</a></li>
+            <li class="menu-item"><a href="#0">Huge Widgets</a></li>
+          </ol>
+        </li>
+        <li class="menu-item">
+          <a href="#0">Kabobs</a>
+          <ol class="sub-menu">
+            <li class="menu-item"><a href="#0">Shishkabobs</a></li>
+            <li class="menu-item"><a href="#0">BBQ kabobs</a></li>
+            <li class="menu-item"><a href="#0">Summer kabobs</a></li>
+          </ol>
+        </li>
+        <li class="menu-item"><a href="#0">Contact</a></li>
+      </ol>
+    </nav>
   </div>
+
   <router-view />
+  
 </template>
 
-<style lang='scss'>
+<style lang="scss">
 @import "./assets/css/nav.css";
 @import "./assets/css/main.css";
 @import "~bulma/bulma";
-
-
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -103,37 +146,43 @@
   background: red;
 }
 </style>
-<script lang='ts'>
+<script lang="ts">
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
-import Home from 'Home.vue';
-import UserWork from '@/modules/user.ts'
+import Home from "Home.vue";
+import UserWork from "@/modules/user.ts";
 
 export default {
-   setup() {
+  setup() {
     const checking = ref(false);
+    const inboxM= ref(false)
 
-    const {currentUser, errorMessage, user} = UserWork()
+    const { currentUser, errorMessage, user, inboxq, loading} = UserWork();
 
-
-        onMounted(() => {
-      currentUser();
+    onMounted(() => {
+       currentUser();
     });
 
+    const openInbox = () => {
+      inboxM.value = !inboxM.value
+    }
 
-    
 
     function closeMenu() {
       checking.value = false;
     }
+
 
     return {
       closeMenu,
       checking,
       errorMessage,
       user,
-    
+      inboxq,
+      inboxM,
+      openInbox,
+      loading
     };
-  }
+  },
 };
 </script>

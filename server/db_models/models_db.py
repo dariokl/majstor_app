@@ -34,10 +34,10 @@ class User(Base):
 
     projects = relationship('Portfolio', backref='projects')
     inbox = relationship('Message', foreign_keys='Message.recipient_id', \
-     backref='recipient', lazy='dynamic')
+     backref='recipient')
 
     outbox = relationship('Message', foreign_keys='Message.sender_id', \
-        backref='author', lazy='dynamic')
+        backref='author')
     
     last_read = Column(DateTime)
     message_counter = Column(Integer)

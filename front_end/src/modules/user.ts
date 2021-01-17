@@ -2,6 +2,11 @@ import { ref, reactive, computed } from "vue";
 import axios from "axios";
 import router from "@/router/index.ts";
 
+  /**
+  * Interfaces used for type hinting each object , same types are used on the back-end 
+  * so it makes the whole state manegement quiet easer.
+  */
+
 interface Portfolio {
   id: number;
   name: string;
@@ -11,6 +16,11 @@ interface Portfolio {
 interface History {
   date: string;
   description: string;
+}
+
+interface Message {
+  sender: number;
+  body: string;
 }
 
 export class User {
@@ -29,13 +39,18 @@ export class User {
   };
   portfolio: boolean;
   projects: [Portfolio];
+  inbox: [Message];
   profileCompleted: number;
   messageCounter: number;
   loggedIn: boolean
 }
+
 interface UsersList {
   users: [User];
 }
+  /**
+   * User is the main objec wich is used as state 
+  */
 
 const user = ref<User>({
   name: "",
@@ -53,36 +68,23 @@ const user = ref<User>({
   },
   portfolio: false,
   projects: [{ id: 0, name: "", description: "", link: "" }],
+  inbox: [{sender: null, body:''}],
   profileCompleted: null,
   messageCounter: null,
   loggedIn: false
 });
 
+
+
 const users = ref<UsersList>({ users: [{} as User] });
-/** This is a description of the foo function. */
+const token = ref(localStorage.getItem("user_token"));
+axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
+const loading = ref(true)
+
+
 export default function UserWork() {
-  const token = ref(localStorage.getItem("user_token"));
   const errorMessage = ref("");
   const loggedIn = ref(false);
-
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-
-  const login = (payload: any) => {
-    axios
-      .post("http://127.0.0.1:8000/users/login", payload)
-      .then((response) => {
-        localStorage.setItem("user_token", response.data.access_token);
-        console.log(loggedIn.value);
-        router.push('/')
-      })
-      .catch((error) => {
-        errorMessage.value = error.response.data.detail;
-      });
-  };
-
-  const logout = () => {
-    user.value.loggedIn = false
-  }
 
   const currentUser = () => {
     axios
@@ -95,13 +97,42 @@ export default function UserWork() {
 
   };
 
+  const login = (payload: any) => {
+    axios
+      .post("http://127.0.0.1:8000/users/login", payload)
+      .then((response) => {
+        localStorage.setItem("user_token", response.data.access_token);
+        user.value.loggedIn = true
+        router.push('/')
+      })
+      .catch((error) => {
+        errorMessage.value = error.response.data.detail;
+      });
+  };
+
+  const logout = () => {
+    user.value.loggedIn = false
+  }
+
+  const inboxq = async (state: boolean) => {
+    if (state === false){
+    await axios
+    .get('http://127.0.0.1:8000/users/inboxq')
+    .then((response) => {
+      user.value.inbox = response.data.inbox
+      loading.value=false
+    })
+  }
+  }
+
   return {
     user,
     login,
     currentUser,
     errorMessage,
     users,
-    logout
-    
+    logout,
+    inboxq,
+    loading
   };
 }

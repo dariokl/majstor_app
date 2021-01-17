@@ -5,7 +5,7 @@
   <input type='password' v-model='loginDetail.password'>
 <button type='submit'>Click</button>
 <p>{{errorMessage}}</p>
-{{user}}
+
 <button @click.prevent='logout()'/>
 
 
