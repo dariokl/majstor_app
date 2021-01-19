@@ -1,5 +1,5 @@
 <template>
-  <div class="view-p">
+  <div class="mt-5 view-p">
     <div class="message" v-if="message">
       <Message> {{ message }}</Message>
     </div>

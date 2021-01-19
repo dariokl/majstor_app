@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import LoginView from "../views/LoginView.vue";
 import Profile from '../views/Profile.vue';
 import Qsearch from '../views/Qsearch.vue';
+import Inbox from '../views/InboxV.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,7 +34,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/q/:search',
     name: 'Search',
     component: Qsearch,
-  
+  },
+  {
+    path: '/inbox',
+    name: 'Inbox',
+    component: Inbox
   }
 
 ];

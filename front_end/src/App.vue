@@ -1,6 +1,6 @@
 <template>
   <div class="page-header">
-    {{loading}}
+
     <input id="menu-toggle-input" type="checkbox" v-model="checking" />
     <label class="menu-toggle" for="menu-toggle-input">
       <span></span>
@@ -26,20 +26,9 @@
 <Skeleton />
 <Skeleton />
   </div>
-    <div v-else class="dropdown-menu" id="dropdown-menu6" role="menu">
-    <div class="dropdown-content">
-      <div v-for='message in user.inbox' :key='message.body' class="dropdown-item" style='min-width: 250px;'>
-        <div class="is-flex is-justify-content-space-between ">
-                        <figure class="image is-rounded is-64x64">
-        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-      </figure> 
-      <p class='has-text-centered'> <strong> {{message.company_name}} </strong> <br> {{message.body}}</p>
+    <div v-else class="dropdown-menu" id="dropdown-menu6" role="menu" style='border-top: 10px solid #f5faff;'>
 
-        </div>
-                <hr class="dropdown-divider">
-      </div>
-
-    </div>
+      
   </div>
 </div>
 
@@ -95,7 +84,9 @@
             <li class="menu-item" @click.prevent="closeMenu">
               <router-link to="/profile">Profile</router-link>
             </li>
-            <li class="menu-item"><a href="#0">Bigger Widgets</a></li>
+              <li class="menu-item" @click.prevent="closeMenu">
+              <router-link to="/inbox">Inbox</router-link>
+            </li>
             <li class="menu-item"><a href="#0">Huge Widgets</a></li>
           </ol>
         </li>
