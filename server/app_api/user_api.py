@@ -9,7 +9,7 @@ from db_models.models_db import User as UserDB
 from db_models.models_db import Portfolio as PortfolioDB
 from db_models.models_db import Message as MessageDB
 
-from pydantic_models.models_pydantic import User, UserIn, LoginUser, UserEdit, UserInfo, DeletePortfolio, Inbox, Message
+from pydantic_models.models_pydantic import User, UserIn, LoginUser, UserEdit, UserInfo, DeletePortfolio, Inbox, Message, Sender
 
 from datetime import datetime, timedelta
 from typing import Optional, Union, Dict, Any
@@ -69,6 +69,18 @@ def inboxq(Authorize: AuthJWT = Depends()):
 
 
     return inbox
+
+@router.post('/inboxf')
+def inboxf(sender: Sender, Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
+    current_id = Authorize.get_jwt_subject()
+
+    query = db.session.query(MessageDB).filter(MessageDB.sender_id==sender.sender).filter(MessageDB.recipient_id==current_id).all()
+
+
+    return query
+
+
 
 
 @router.post('/register', status_code=200)

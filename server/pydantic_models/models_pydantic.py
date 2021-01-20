@@ -102,3 +102,6 @@ class Inbox(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Sender(BaseModel):
+    sender: int
