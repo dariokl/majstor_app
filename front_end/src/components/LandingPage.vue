@@ -200,11 +200,8 @@ export default {
     setup() {
       const q = 'alo'
         const query = () => {
-
         router.push({ path: `/q/${q}` });
-
         }
-
         return {
             query
         }

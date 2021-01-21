@@ -1,6 +1,7 @@
 <template>
   <div class="page-header">
-
+    {{user}}
+    {{errorMessage}}
     <input id="menu-toggle-input" type="checkbox" v-model="checking" />
     <label class="menu-toggle" for="menu-toggle-input">
       <span></span>
@@ -10,27 +11,41 @@
       <span></span>
       <span></span>
     </label>
-    <div  class="container" style='bottom: 15px;'>
-      <div v-if="user.loggedIn === false"  class="column has-text-right">
-        <p>{{ errorMessage }}</p>
-       
+    <div class="container" style="bottom: 15px;">
+      <div v-if="user.loggedIn === false" class="column has-text-right">
+        <p>Logged in required</p>
       </div>
       <div v-else class="column has-text-left">
         <div else class="hover-effect3" style="height: 0px">
           <ul>
             <li>
-              <a v-if="user.message_counter > 0" href="#." title="Facebook" @click.prevent='inboxq(inboxM), openInbox()'>
-                <div class="mt-5 dropdown is-left" :class="{'is-active': inboxM}">
-
-  <div v-if='loading === true' class="dropdown-menu" id="dropdown-menu6" role="menu">
-<Skeleton />
-<Skeleton />
-  </div>
-    <div v-else class="dropdown-menu" id="dropdown-menu6" role="menu" style='border-top: 10px solid #f5faff;'>
-
-      
-  </div>
-</div>
+              <a
+                v-if="user.message_counter > 0"
+                href="#."
+                title="Facebook"
+                @click.prevent="inboxq(inboxM), openInbox()"
+              >
+                <div
+                  class="mt-5 dropdown is-left"
+                  :class="{ 'is-active': inboxM }"
+                >
+                  <div
+                    v-if="loading === true"
+                    class="dropdown-menu"
+                    id="dropdown-menu6"
+                    role="menu"
+                  >
+                    <Skeleton />
+                    <Skeleton />
+                  </div>
+                  <div
+                    v-else
+                    class="dropdown-menu"
+                    id="dropdown-menu6"
+                    role="menu"
+                    style="border-top: 10px solid #f5faff;"
+                  ></div>
+                </div>
 
                 <i
                   class="pi pi-envelope p-text-secondary"
@@ -84,7 +99,7 @@
             <li class="menu-item" @click.prevent="closeMenu">
               <router-link to="/profile">Profile</router-link>
             </li>
-              <li class="menu-item" @click.prevent="closeMenu">
+            <li class="menu-item" @click.prevent="closeMenu">
               <router-link to="/inbox">Inbox</router-link>
             </li>
             <li class="menu-item"><a href="#0">Huge Widgets</a></li>
@@ -104,7 +119,6 @@
   </div>
 
   <router-view />
-  
 </template>
 
 <style lang="scss">
@@ -146,23 +160,17 @@ import UserWork from "@/modules/user.ts";
 export default {
   setup() {
     const checking = ref(false);
-    const inboxM= ref(false)
+    const inboxM = ref(false);
 
-    const { currentUser, errorMessage, user, inboxq, loading} = UserWork();
-
-    onMounted(() => {
-       currentUser();
-    });
+    const { currentUser, errorMessage, user, inboxq, loading } = UserWork();
 
     const openInbox = () => {
-      inboxM.value = !inboxM.value
-    }
-
+      inboxM.value = !inboxM.value;
+    };
 
     function closeMenu() {
       checking.value = false;
     }
-
 
     return {
       closeMenu,
@@ -172,7 +180,7 @@ export default {
       inboxq,
       inboxM,
       openInbox,
-      loading
+      loading,
     };
   },
 };

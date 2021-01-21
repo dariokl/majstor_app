@@ -543,7 +543,7 @@
               @deleteskills="handleDeleteSkills"
             />
           </div>
-          {{state}}
+        
         </div>
       </div>
     </div>
@@ -556,7 +556,7 @@ import { User } from "@/modules/user.ts";
 import Portfolio from "../components/Portfolio.vue";
 import History from "../components/History.vue";
 import Skills from "../components/Skills.vue";
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref, reactive, onUpdated} from "vue";
 import axios from "axios";
 
 interface History {
@@ -576,9 +576,7 @@ export default {
     const message = ref("");
     const render = ref(null);
 
-    onMounted(() => {
-      currentUser();
-    });
+    currentUser()
 
     /** Modal area */
 

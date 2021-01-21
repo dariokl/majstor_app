@@ -2,10 +2,10 @@ import { ref, reactive, computed } from "vue";
 import axios from "axios";
 import router from "@/router/index.ts";
 
-  /**
-  * Interfaces used for type hinting each object , same types are used on the back-end 
-  * so it makes the whole state manegement quiet easer.
-  */
+/**
+ * Interfaces used for type hinting each object , same types are used on the back-end
+ * so it makes the whole state manegement quiet easer.
+ */
 
 interface Portfolio {
   id: number;
@@ -42,16 +42,15 @@ export class User {
   inbox: [Message];
   profileCompleted: number;
   messageCounter: number;
-  loggedIn: boolean
+  loggedIn: boolean;
 }
 
 interface UsersList {
   users: [User];
 }
-  /**
-   * User is the main objec wich is used as state 
-  */
-
+/**
+ * User is the main objec wich is used as state
+ */
 const user = ref<User>({
   name: "",
   lastName: "",
@@ -68,42 +67,41 @@ const user = ref<User>({
   },
   portfolio: false,
   projects: [{ id: 0, name: "", description: "", link: "" }],
-  inbox: [{sender: null, body:''}],
+  inbox: [{ sender: null, body: "" }],
   profileCompleted: null,
   messageCounter: null,
-  loggedIn: false
+  loggedIn: false,
 });
-
-
 
 const users = ref<UsersList>({ users: [{} as User] });
 const token = ref(localStorage.getItem("user_token"));
-axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
-const loading = ref(true)
-
-
+const loading = ref(true);
+const tokenfly = ref(null)
+axios.defaults.headers.common["Authorization"] = `Bearer ${tokenfly.value}`;
 export default function UserWork() {
   const errorMessage = ref("");
-  const loggedIn = ref(false);
+
+  console.log(tokenfly.value)
 
   const currentUser = () => {
     axios
       .get("http://127.0.0.1:8000/users/user")
       .then((response) => {
         user.value = response.data;
-        user.value.loggedIn = true
+        user.value.loggedIn = true;
       })
       .catch((error) => (errorMessage.value = error.response.data.detail));
-
   };
 
   const login = (payload: any) => {
     axios
       .post("http://127.0.0.1:8000/users/login", payload)
       .then((response) => {
-        localStorage.setItem("user_token", response.data.access_token);
-        user.value.loggedIn = true
-        router.push('/')
+        window.localStorage.setItem("user_token", response.data.access_token);
+        tokenfly.value = response.data.access_token
+
+        user.value.loggedIn = true;
+        router.push("/profile");
       })
       .catch((error) => {
         errorMessage.value = error.response.data.detail;
@@ -111,19 +109,17 @@ export default function UserWork() {
   };
 
   const logout = () => {
-    user.value.loggedIn = false
-  }
+    user.value.loggedIn = false;
+  };
 
   const inboxq = async (state: boolean) => {
-    if (state === false){
-    await axios
-    .get('http://127.0.0.1:8000/users/inboxq')
-    .then((response) => {
-      user.value.inbox = response.data.inbox
-      loading.value=false
-    })
-  }
-  }
+    if (state === false) {
+      await axios.get("http://127.0.0.1:8000/users/inboxq").then((response) => {
+        user.value.inbox = response.data.inbox;
+        loading.value = false;
+      });
+    }
+  };
 
   return {
     user,
@@ -133,6 +129,7 @@ export default function UserWork() {
     users,
     logout,
     inboxq,
-    loading
+    loading,
+    token,
   };
 }

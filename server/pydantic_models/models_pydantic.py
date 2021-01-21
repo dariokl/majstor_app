@@ -1,5 +1,5 @@
-from pydantic import BaseModel, EmailStr
-from typing import Optional, List
+from pydantic import BaseModel, EmailStr, create_model
+from typing import Optional, List, Dict
 from sqlalchemy.sql.sqltypes import Boolean
 
 
@@ -41,12 +41,13 @@ class Portfolio(BaseModel):
     class Config:
         orm_mode = True
 
+    
+
 class Message(BaseModel):
     id: int
     sender_id: int
     company_name: str
     body: str
-
     class Config:
         orm_mode = True
 
@@ -98,7 +99,7 @@ class UserQuery(BaseModel):
         orm_mode = True
 
 class Inbox(BaseModel):
-    inbox: List[Message]
+    inbox: Dict[str, List[Message]]
 
     class Config:
         orm_mode = True

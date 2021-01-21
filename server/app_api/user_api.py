@@ -59,13 +59,27 @@ def inboxq(Authorize: AuthJWT = Depends()):
 
     all_messages = db.session.query(MessageDB).filter(MessageDB.recipient_id==current_id).all()
     messages = []
+    test_list = {}
+
+
 
 
     for message in all_messages:
         messages.append({'id': message.id, 'sender_id': message.sender_id, 'body': message.body, 'company_name': message.author.company_name})
+        if message.author.company_name in test_list:
+            test_list[message.author.company_name].append({'id': message.id, 'sender_id': message.sender_id, \
+                'body': message.body, 'company_name': message.author.company_name})
+        else:
+            test_list[message.author.company_name] = [{'id': message.id, 'sender_id': message.sender_id, \
+                'body': message.body, 'company_name': message.author.company_name}]
+    
+    print([test_list])
 
 
-    inbox = Inbox(inbox=messages)
+
+    inbox = Inbox(inbox=test_list)
+
+    print(inbox)
 
 
     return inbox

@@ -14,6 +14,7 @@ import ProgressBar from 'primevue/progressbar';
 import Badge from 'primevue/badge';
 import BadgeDirective from 'primevue/badgedirective';
 import Skeleton from 'primevue/skeleton';
+import ScrollPanel from 'primevue/scrollpanel';
 
 
 
@@ -33,6 +34,7 @@ createApp(App)
   .component("ProgressBar", ProgressBar)
   .component("Badge", Badge)
   .component("Skeleton", Skeleton)
+  .component("ScrollPanel", ScrollPanel)
   .use(router)
   .use(PrimeVue)
   .directive("badge", BadgeDirective)

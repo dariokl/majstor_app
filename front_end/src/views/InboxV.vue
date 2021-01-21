@@ -1,16 +1,19 @@
 <template>
   <div class="cotnainer">
     <div class="mt-6 view-p">
-      <div class="columns" style="height: 100vh;">
+      {{user.inbox}}
+      <div class="columns" style="height: 100%;">
         <div class="column is-one-third">
           <div class="box" style="height: 100vh;">
             <Button label="Inbox" icon="pi pi-inbox" iconPos="right" />
             <hr />
-            <div v-for="message in user.inbox" :key='message.id'
+            <div v-for="(message, index) in user.inbox" :key='index'
+
               id="msg-card-0"
               data-preview-id="0"
               class="card is-msg has-attachment is-active"
-              @click.prevent="fetchInbox(message.sender_id)"
+              
+              @click.prevent="fetchInbox(message.slice(-1)[0].sender_id)"
             >
               <div class="card-content">
                 <div class="msg-header">
@@ -29,18 +32,25 @@
                 </div>
                 <div class="msg-snippet">
                   <p class="has-text-left">
-                    {{message.body}}
+                    {{message.slice(-1)[0].body}}
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-half">
-          <div class="box">
-            <div v-if='chat.chat' class="box message-preview">
-              {{chat.chat}}
-                                <div class="box-inner">
+        <div class="column is-auto">
+          <div class="box" v-if='chat.messages.length > 1' style='height: 100vh;'>
+
+<ScrollPanel style="width: 100%; height: 100%;" class='scroller'>
+
+
+                  
+            <div
+             class="box message-preview" v-for='chat in chat.messages' :key='chat.id'>
+      
+                                <div  class="box-inner">
+                                  {{chat}}
                                     <div class="header">
                                         <div class="avatar">
                                             <img src="assets/img/avatars/dan.jpg" data-demo-src="assets/img/avatars/dan.jpg" alt="" data-user-popover="1" data-target="webuiPopover23">
@@ -63,25 +73,17 @@
                                     <hr>
                                     <div class="content">
                                         <p>Hi there!</p>
-                                        <p>Corporis tempora id quae fuga. Perspiciatis quam magnam dolores ut quia. Neque vero non laudantium
-                                            animi omnis qui debitis minus molestias. Est ut minus est dolores quo harum illum suscipit cumque.
+                                        <p>{{chat.body}}
                                         </p>
-                                        <p>Natus vel ipsam suscipit est possimus qui quia. Distinctio aspernatur quia tenetur harum. Tempore qui
-                                            aut ratione earum quia nam. Et asperiores officiis delectus. Optio quisquam nulla. </p>
-                                        <p>Sincerely, <br>Dan.</p>
+                                        
                                     </div>
                                     <div class="has-text-right">
                                         <a class="button is-solid grey-button is-bold raised">Reply to Message</a>
                                     </div>
                                 </div>
                             </div>
+                         </ScrollPanel>
           </div>
-        </div>
-        <div class="column">
-          No gap
-        </div>
-        <div class="column">
-          No gap
         </div>
       </div>
     </div>
@@ -90,7 +92,7 @@
 
 <script lang="ts">
 import UserWork from "@/modules/user.ts";
-import {ref, reactive} from 'vue';
+import {ref, reactive, onMounted} from 'vue';
 import axios from 'axios';
 
 interface Message {
@@ -99,29 +101,34 @@ interface Message {
 }
 
 interface Chat {
-  chat: [Message]
+  messages: [Message]
 }
 
 export default {
 
   setup() {
-   const {user} = UserWork()
+   const {user, inboxq} = UserWork()
+   inboxq(false)
+  
 
 
-   const chat = ref<Chat>({ chat: [{} as Message] })
+
+   const chat = ref<Chat>({ messages: [{} as Message] })
 
    const fetchInbox = (senderId: number) => {
      axios
      .post('http://127.0.0.1:8000/users/inboxf', {sender: senderId} )
      .then((response) => {
+       chat.value.messages = [{} as Message] 
     
      for (const obj of response.data) {
-       chat.value.chat.push({body: obj.body, timestamp:'alooo'})
+       chat.value.messages.push({body: obj.body, timestamp:'alooo'})
        
      }
        
      })
    }
+
 
 
    return {
@@ -147,5 +154,19 @@ export default {
   color: #4a4a4a;
   max-width: 100%;
   overflow: hidden;
+}
+
+.scoller .p-scrollpanel-wrapper {
+    border-right: 9px solid #f4f4f4;
+}
+
+.scroller .p-scrollpanel-bar {
+    background-color: #1976d2;
+    opacity: 1;
+    transition: background-color .3s;
+}
+
+.scoller .p-scrollpanel-bar:hover {
+    background-color: #318c63;
 }
 </style>
